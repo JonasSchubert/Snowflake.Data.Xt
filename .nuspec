@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Snowflake.Data.Xt</id>
+    <Version>0.0.0</Version>
+    <dependencies>
+      <depdendency id="Snowflake.Data" version="2.1.2" />
+    </dependencies>
+  </metadata>
+</package>
