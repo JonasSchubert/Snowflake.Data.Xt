@@ -12,7 +12,7 @@ dotnet add package Snowflake.Data.Xt
 
 This package provides multiple attributes and extension methods to try to make it easier querying data from snowflake.\
 This is an example for the table `EXAMPLE_COST` joined with `COST_CENTER`.\
-It uses a left join. Check the [attribute implementation](./src/Attributes/SnowflakeJoin.cs) for all join options.
+It uses a left join. Check the [attribute implementation](./src/Attributes/SnowflakeJoinAttribute.cs) for all join options.
 
 #### `Example.cs`
 
