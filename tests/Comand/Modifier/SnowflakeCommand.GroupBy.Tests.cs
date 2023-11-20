@@ -108,11 +108,13 @@ public class SnowflakeCommandGroupByTests
   [InlineData(null)]
   [InlineData("")]
   [InlineData("   ")]
-  public void GroupByString_ShouldThrowException_ForEmptyArgument(string groupBy)
+  public void GroupByString_ShouldThrowException_ForEmptyArgument(string? groupBy)
   {
     // Arrange && Act
     var command = () => new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+# pragma warning disable CS8604
       .GroupBy(groupBy);
+# pragma warning restore CS8604
 
     // Assert
     command.Should().Throw<ArgumentNullException>().WithMessage("Value for group by clause may not be empty! (Parameter 'groupBy')");

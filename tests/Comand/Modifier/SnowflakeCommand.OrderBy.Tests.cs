@@ -136,11 +136,13 @@ public class SnowflakeCommandOrderByTests
   [InlineData(null)]
   [InlineData("")]
   [InlineData("   ")]
-  public void OrderByString_ShouldThrowException_ForEmptyArgument(string orderBy)
+  public void OrderByString_ShouldThrowException_ForEmptyArgument(string? orderBy)
   {
     // Arrange && Act
     var command = () => new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+# pragma warning disable CS8604
       .OrderBy(orderBy);
+# pragma warning restore CS8604
 
     // Assert
     command.Should().Throw<ArgumentNullException>().WithMessage("Value for order by clause may not be empty! (Parameter 'orderBy')");

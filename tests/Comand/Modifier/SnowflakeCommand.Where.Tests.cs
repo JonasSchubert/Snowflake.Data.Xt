@@ -86,11 +86,13 @@ public class SnowflakeCommandWhereTests
   [InlineData(null)]
   [InlineData("")]
   [InlineData("   ")]
-  public void WhereString_ShouldThrowException_ForEmptyArgument(string where)
+  public void WhereString_ShouldThrowException_ForEmptyArgument(string? where)
   {
     // Arrange && Act
     var command = () => new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+# pragma warning disable CS8604
       .Where(where);
+# pragma warning restore CS8604
 
     // Assert
     command.Should().Throw<ArgumentNullException>().WithMessage("Value for where clause may not be empty! (Parameter 'where')");

@@ -72,12 +72,14 @@ public class SnowflakeCommandHavingTests
   [InlineData(null)]
   [InlineData("")]
   [InlineData("   ")]
-  public void HavingString_ShouldThrowException_ForEmptyArgument(string having)
+  public void HavingString_ShouldThrowException_ForEmptyArgument(string? having)
   {
     // Arrange && Act
     var command = () => new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
       .GroupBy(item => item.Id)
+# pragma warning disable CS8604
       .Having(having);
+# pragma warning restore CS8604
 
     // Assert
     command.Should().Throw<ArgumentNullException>().WithMessage("Value for having predicate may not be empty! (Parameter 'having')");
