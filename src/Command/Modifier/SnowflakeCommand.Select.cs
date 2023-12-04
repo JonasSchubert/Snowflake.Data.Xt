@@ -11,7 +11,7 @@ public partial class SnowflakeCommand<T>
   /// <returns>The snowflake command.</returns>
   public SnowflakeCommand<T> Select<TGroupBy>(Expression<Func<T, TGroupBy>> predicate)
   {
-    var selectBody = string.Join(", ", SelectRegex()
+    var selectBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}")
       .Replace(predicate.Body
         .ToString()
         .Replace($"{predicate.Parameters[0].Name}.", string.Empty), string.Empty)
@@ -34,7 +34,4 @@ public partial class SnowflakeCommand<T>
 
     return this;
   }
-
-  [GeneratedRegex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}")]
-  private static partial Regex SelectRegex();
 }

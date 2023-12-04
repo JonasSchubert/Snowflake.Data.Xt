@@ -28,26 +28,25 @@ public partial class SnowflakeCommand<T>
     this.Properties = typeof(T)
       .GetProperties()
       .Where(propertyInfo => propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), true).Length > 0)
-      .ToDictionary(
-        propertyInfo => propertyInfo,
-        propertyInfo => (SnowflakeColumnAttribute)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), true).Single())
-      .Select(item =>
+      .Select(propertyInfo =>
       {
-        if (string.IsNullOrWhiteSpace(item.Value.Name))
+        var attribute = (SnowflakeColumnAttribute)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), true).Single();
+
+        if (string.IsNullOrWhiteSpace(attribute.Name))
         {
-          item.Value.Name = JsonNamingPolicy.SnakeCaseUpper.ConvertName(item.Key.Name);
+          attribute.Name = string.Concat( propertyInfo.Name.Select((_, index) => index > 0 && char.IsUpper(_) ? "_" + _.ToString() : _.ToString())).ToUpperInvariant();
         }
 
-        return item;
+        return (propertyInfo, attribute);
       })
-      .ToDictionary();
+      .ToDictionary(_ => _.propertyInfo, _ => _.attribute);
 
     var alphabetIndex = 0;
 
     this.Table = (SnowflakeTableAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeTableAttribute))!;
     if (string.IsNullOrWhiteSpace(this.Table.Name))
     {
-      this.Table.Name = JsonNamingPolicy.SnakeCaseUpper.ConvertName(typeof(T).Name);
+      this.Table.Name = string.Concat(typeof(T).Name.Select((_, index) => index > 0 && char.IsUpper(_) ? "_" + _.ToString() : _.ToString())).ToUpperInvariant();
     }
 
     if (string.IsNullOrWhiteSpace(this.Table.Alias))

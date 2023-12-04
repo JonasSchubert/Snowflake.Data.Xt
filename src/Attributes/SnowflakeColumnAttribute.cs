@@ -1,9 +1,15 @@
 namespace Snowflake.Data.Xt;
 
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-public sealed class SnowflakeColumnAttribute(string? name = default, string? table = default) : Attribute
+public sealed class SnowflakeColumnAttribute : Attribute
 {
-  public string Name { get; set; } = name ?? string.Empty;
+  public SnowflakeColumnAttribute(string? name = default, string? table = default)
+  {
+    this.Name = name ?? string.Empty;
+    this.Table = table;
+  }
 
-  public string? Table { get; } = table;
+  public string Name { get; set; }
+
+  public string? Table { get; }
 }

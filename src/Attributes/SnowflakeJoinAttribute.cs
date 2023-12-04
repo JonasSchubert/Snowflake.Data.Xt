@@ -1,8 +1,16 @@
 namespace Snowflake.Data.Xt;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public sealed class SnowflakeJoinAttribute(string table, string alias, string type, string condition) : Attribute
+public sealed class SnowflakeJoinAttribute : Attribute
 {
+  public SnowflakeJoinAttribute(string table, string alias, string type, string condition)
+  {
+    this.Table = table;
+    this.Alias = alias;
+    this.Type = type;
+    this.Condition = condition;
+  }
+
   public const string Cross = "CROSS";
 
   public const string Full = "FULL";
@@ -21,11 +29,11 @@ public sealed class SnowflakeJoinAttribute(string table, string alias, string ty
 
   public const string RightOuter = "RIGHT OUTER";
 
-  public string Alias { get; set; } = alias;
+  public string Alias { get; set; }
 
-  public string Condition { get; } = condition;
+  public string Condition { get; }
 
-  public string Table { get; } = table;
+  public string Table { get; }
 
-  public string Type { get; } = type;
+  public string Type { get; }
 }

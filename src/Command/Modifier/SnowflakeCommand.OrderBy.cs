@@ -36,7 +36,7 @@ public partial class SnowflakeCommand<T>
       throw new InvalidOperationException("Command already has an order by clause!");
     }
 
-    var orderByBody = string.Join(", ", OrderByRegex()
+    var orderByBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}")
       .Replace(predicate.Body
         .ToString()
         .Replace($"{predicate.Parameters[0].Name}.", string.Empty), string.Empty)
@@ -95,7 +95,4 @@ public partial class SnowflakeCommand<T>
 
     return this;
   }
-
-  [GeneratedRegex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}")]
-  private static partial Regex OrderByRegex();
 }

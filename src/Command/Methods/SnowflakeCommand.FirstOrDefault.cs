@@ -20,7 +20,7 @@ public partial class SnowflakeCommand<T>
     command.CommandText = this.Sql;
 
     this.WriteLogInformation($"Adding {parameterList?.Count ?? 0} parameters.");
-    foreach (var parameter in parameterList ?? [])
+    foreach (var parameter in parameterList ?? new List<(string, DbType, object)>())
     {
       command.AddParameter(parameter.Item1, parameter.Item2, parameter.Item3);
     }
