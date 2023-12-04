@@ -17,6 +17,21 @@ public class SnowflakeCommandWhereTests
   }
 
   [Fact]
+  public void WherePredicate_ShouldFill_SELECT_FROM_ForSimpleClass_AndOneWhereWithParameter()
+  {
+    // Arrange
+    var testProperty = "test";
+    var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+      .Where(item => item.Property1 == testProperty);
+
+    // Act
+    var sql = command.Sql;
+
+    // Assert
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = \"test\")");
+  }
+
+  [Fact]
   public void WherePredicate_ShouldFill_SELECT_FROM_JOIN_ForClassWithJoin_AndMultipleWhere()
   {
     // Arrange
@@ -30,6 +45,21 @@ public class SnowflakeCommandWhereTests
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
   }
   
+  [Fact]
+  public void WherePredicate_ShouldFill_SELECT_FROM_ForSimpleClass_AndMultipleWhereWithParameter()
+  {
+    // Arrange
+    var testProperty = "test";
+    var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+      .Where(item => item.Property1 == testProperty || (item.Id > 4 && item.Id < 10));
+
+    // Act
+    var sql = command.Sql;
+
+    // Assert
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE ((a.PROP_1 = \"test\") OR ((a.ID > 4) AND (a.ID < 10)))");
+  }
+
   [Fact]
   public void WhereString_ShouldFill_SELECT_FROM_ForSimpleClass()
   {
