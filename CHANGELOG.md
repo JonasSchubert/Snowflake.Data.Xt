@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.0.1...v1.0.2) (2023-12-04)
+
+
+### Bug Fixes
+
+* **where:** properly handle dynamic arguments ([6ea9059](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/6ea90597a74ddbaf5e3cd1ef25a6888b2c8bdede))
+
 ## [1.0.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.0.0...v1.0.1) (2023-11-17)
 
 
