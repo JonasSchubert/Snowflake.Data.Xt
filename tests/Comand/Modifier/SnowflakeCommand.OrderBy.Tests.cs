@@ -57,7 +57,7 @@ public class SnowflakeCommandOrderByTests
     // Assert
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.PROP_2 DESC");
   }
-  
+
   [Fact]
   public void OrderByString_ShouldFill_SELECT_FROM_ForSimpleClass()
   {
@@ -85,7 +85,7 @@ public class SnowflakeCommandOrderByTests
     // Assert
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY bar.PROP_2 ASC");
   }
-  
+
   [Fact]
   public void OrderByString_ShouldThrowException_IfPropertyIsNotValid_ForSimpleClass()
   {
@@ -107,7 +107,7 @@ public class SnowflakeCommandOrderByTests
     // Assert
     command.Should().Throw<ArgumentException>().WithMessage("Order By may only contain valid properties (bar.ID, foo.PROP_1, bar.PROP_2)! \"bar.PROP_1\" is not allowed!");
   }
-  
+
   [Fact]
   public void OrderByString_ShouldThrowException_ForMultipleCalls_ForSimpleClass()
   {
@@ -131,7 +131,7 @@ public class SnowflakeCommandOrderByTests
     // Assert
     command.Should().Throw<InvalidOperationException>().WithMessage("Command already has an order by clause!");
   }
-  
+
   [Theory]
   [InlineData(null)]
   [InlineData("")]

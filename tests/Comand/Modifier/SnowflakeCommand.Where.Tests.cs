@@ -44,7 +44,7 @@ public class SnowflakeCommandWhereTests
     // Assert
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
   }
-  
+
   [Fact]
   public void WherePredicate_ShouldFill_SELECT_FROM_ForSimpleClass_AndMultipleWhereWithParameter()
   {
@@ -87,7 +87,7 @@ public class SnowflakeCommandWhereTests
     // Assert
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.PROP_2 == \"test\"");
   }
- 
+
   [Fact]
   public void WhereString_ShouldThrowException_ForMultipleCalls_ForSimpleClass()
   {
@@ -111,7 +111,7 @@ public class SnowflakeCommandWhereTests
     // Assert
     command.Should().Throw<InvalidOperationException>().WithMessage("Command already has a where clause!");
   }
-  
+
   [Theory]
   [InlineData(null)]
   [InlineData("")]

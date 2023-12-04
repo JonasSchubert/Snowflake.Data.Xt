@@ -29,7 +29,7 @@ public class SnowflakeCommandGroupByTests
     // Assert
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY foo.PROP_1, bar.PROP_2");
   }
-  
+
   [Fact]
   public void GroupByString_ShouldFill_SELECT_FROM_ForSimpleClass()
   {
@@ -57,7 +57,7 @@ public class SnowflakeCommandGroupByTests
     // Assert
     sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY bar.PROP_2");
   }
-  
+
   [Fact]
   public void GroupByString_ShouldThrowException_IfPropertyIsNotValid_ForSimpleClass()
   {
@@ -79,7 +79,7 @@ public class SnowflakeCommandGroupByTests
     // Assert
     command.Should().Throw<ArgumentException>().WithMessage("Group By may only contain valid properties (bar.ID, foo.PROP_1, bar.PROP_2)! \"bar.PROP_1\" is not allowed!");
   }
-  
+
   [Fact]
   public void GroupByString_ShouldThrowException_ForMultipleCalls_ForSimpleClass()
   {
@@ -103,7 +103,7 @@ public class SnowflakeCommandGroupByTests
     // Assert
     command.Should().Throw<InvalidOperationException>().WithMessage("Command already has a group by clause!");
   }
-  
+
   [Theory]
   [InlineData(null)]
   [InlineData("")]
