@@ -1,3 +1,16 @@
+# [1.1.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.0.2...v1.1.0) (2023-12-04)
+
+
+### Bug Fixes
+
+* **target-framework:** add net6.0 support to project files ([7099631](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/70996312198f6e2dce30cf22cea9f3512a32644e))
+* **target-framework:** make net6.0 compatible ([47808dd](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/47808dd2f93ce4e3bacb02d07fe45b4d50d72be9))
+
+
+### Features
+
+* **target-framework:** add net6.0 support ([1da78eb](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/1da78ebab9e5049df0590725aa613ad16345a66c))
+
 ## [1.0.2](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.0.1...v1.0.2) (2023-12-04)
 
 
