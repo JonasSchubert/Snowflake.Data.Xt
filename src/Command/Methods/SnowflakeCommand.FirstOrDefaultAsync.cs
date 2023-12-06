@@ -13,7 +13,7 @@ public partial class SnowflakeCommand<T>
     {
       ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
     };
-    await dbConnection.OpenAsync(cancellationToken);
+    await dbConnection.OpenAsync(cancellationToken).ConfigureAwait(false);
 
     var command = dbConnection.CreateCommand();
     this.WriteLogInformation(this.Sql);
@@ -30,7 +30,7 @@ public partial class SnowflakeCommand<T>
 
     this.WriteLogInformation($"Found{(item is not null ? string.Empty : " no")} item for the provided query.");
 
-    await dbConnection.CloseAsync(cancellationToken);
+    await dbConnection.CloseAsync(cancellationToken).ConfigureAwait(false);
 
     return item;
   }
