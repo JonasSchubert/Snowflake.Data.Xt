@@ -15,9 +15,9 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <RootNamespace>Snowflake.Data.Xt</RootNamespace>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
+    <Version>1.1.1</Version>
+    <AssemblyVersion>1.1.1</AssemblyVersion>
+    <FileVersion>1.1.1</FileVersion>
     <RepositoryUrl>https://github.com/JonasSchubert/Snowflake.Data.Xt.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
   </PropertyGroup>

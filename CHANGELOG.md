@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.1.0...v1.1.1) (2023-12-06)
+
+
+### Bug Fixes
+
+* **async:** use ConfigureAwait(false) ([5719c5c](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/5719c5cc6601875cbc7d5063ecf8f0700be8d2a3))
+
 # [1.1.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.0.2...v1.1.0) (2023-12-04)
 
 
