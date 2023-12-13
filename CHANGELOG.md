@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.1.1...v1.2.0) (2023-12-13)
+
+
+### Features
+
+* **package:** use code analyzers to improve allover, add docs ([ceddb6c](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/ceddb6cad6124475a8a8f46ed79727279fecd5a2))
+
 ## [1.1.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.1.0...v1.1.1) (2023-12-06)
 
 
