@@ -1,7 +1,24 @@
+//-----------------------------------------------------------------------
+// <copyright file="EnvironmentExtensions.cs" company="Jonas Schubert">
+//     Copyright (c) Jonas Schubert. All rights reserved.
+// </copyright>
+// <author>EWP Team Fürth</author>
+//-----------------------------------------------------------------------
+
 namespace Snowflake.Data.Xt;
 
+#pragma warning disable MA0015 // Specify the parameter name in ArgumentException
+
+/// <summary>
+/// The static environment extensions class.
+/// </summary>
 public static class EnvironmentExtensions
 {
+  /// <summary>
+  /// Gets the snowflake connection string from environment variables.
+  /// </summary>
+  /// <exception cref="ArgumentNullException">If any environment variable is missing, an ArgumentNullException will be thrown.</exception>
+  /// <returns>The snowflake connection string.</returns>
   public static string GetSnowflakeConnectionString()
   {
     var account = Environment.GetEnvironmentVariable("SNOWFLAKE_ACCOUNT");
@@ -39,3 +56,4 @@ public static class EnvironmentExtensions
     return $"account={account};user={user};private_key_pwd={privateKeyPassword};authenticator={authenticator};private_key_file={privateKeyFile};warehouse={warehouse}";
   }
 }
+#pragma warning restore MA0015 // Specify the parameter name in ArgumentException

@@ -1,0 +1,7 @@
+root = false
+
+#### .NET Coding Conventions ####
+[*.{cs,vb}]
+dotnet_diagnostic.CS8604.severity = none
+dotnet_diagnostic.IDE0130.severity = none
+dotnet_diagnostic.MA0048.severity = none

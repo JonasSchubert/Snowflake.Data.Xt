@@ -1,10 +1,26 @@
+//-----------------------------------------------------------------------
+// <copyright file="DbDataReaderExtensions.cs" company="Jonas Schubert">
+//     Copyright (c) Jonas Schubert. All rights reserved.
+// </copyright>
+// <author>EWP Team Fürth</author>
+//-----------------------------------------------------------------------
+
 using System.Data.Common;
 using System.Reflection;
 
 namespace Snowflake.Data.Xt;
 
+/// <summary>
+/// The static database data reader extensions class.
+/// </summary>
 public static class DbDataReaderExtensions
 {
+  /// <summary>
+  /// Gets the first item for a query or null if none is found.
+  /// </summary>
+  /// <typeparam name="T">The generic type.</typeparam>
+  /// <param name="dbDataReader">The database data reader.</param>
+  /// <returns>The first item if found, otherwise null.</returns>
   public static T? FirstOrDefault<T>(this DbDataReader dbDataReader)
     where T : class
   {
@@ -23,7 +39,7 @@ public static class DbDataReaderExtensions
           continue;
         }
 
-        SnowflakeColumnAttribute? snowflakeColumn = (SnowflakeColumnAttribute?)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), true).SingleOrDefault();
+        SnowflakeColumnAttribute? snowflakeColumn = (SnowflakeColumnAttribute?)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), inherit: true).SingleOrDefault();
         if (snowflakeColumn is null)
         {
           continue;
@@ -38,6 +54,12 @@ public static class DbDataReaderExtensions
     return null;
   }
 
+  /// <summary>
+  /// Gets a list of items for a query.
+  /// </summary>
+  /// <typeparam name="T">The generic type.</typeparam>
+  /// <param name="dbDataReader">The database data reader.</param>
+  /// <returns>A list of items.</returns>
   public static IList<T> ToList<T>(this DbDataReader dbDataReader)
     where T : class
   {
@@ -57,7 +79,18 @@ public static class DbDataReaderExtensions
     return list;
   }
 
+  /// <summary>
+  /// Sets a property value using snowflake column attribute and property info.
+  /// </summary>
+  /// <typeparam name="T">The generic type.</typeparam>
+  /// <param name="property">The property.</param>
+  /// <param name="item">The item.</param>
+  /// <param name="dbDataReader">The database data reader.</param>
+  /// <param name="snowflakeColumn">The snowflake column.</param>
+  /// <exception cref="NotSupportedException">If a property type is not supported, a NotSupportedException will be thrown.</exception>
+#pragma warning disable MA0051 // Method is too long
   private static void SetPropertyValue<T>(PropertyInfo property, T item, DbDataReader dbDataReader, SnowflakeColumnAttribute snowflakeColumn)
+#pragma warning restore MA0051 // Method is too long
   {
     if (property.PropertyType == typeof(string))
     {
@@ -121,7 +154,7 @@ public static class DbDataReaderExtensions
     }
     else
     {
-      throw new NotImplementedException($"Type '{property.PropertyType}' is not yet supported. Please create an issue. Thank you!");
+      throw new NotSupportedException($"Type '{property.PropertyType}' is not yet supported. Please create an issue. Thank you!");
     }
   }
 }

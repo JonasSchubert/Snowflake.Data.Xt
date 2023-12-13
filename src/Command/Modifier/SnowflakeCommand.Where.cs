@@ -1,47 +1,63 @@
+//-----------------------------------------------------------------------
+// <copyright file="SnowflakeCommand.Where.cs" company="Jonas Schubert">
+//     Copyright (c) Jonas Schubert. All rights reserved.
+// </copyright>
+// <author>EWP Team Fürth</author>
+//-----------------------------------------------------------------------
+
+using System.Globalization;
+
 namespace Snowflake.Data.Xt;
 
+/// <summary>
+/// The snowflake command.
+/// </summary>
+/// <typeparam name="T">The generic type. This is used to parse properties for the query.</typeparam>
 public partial class SnowflakeCommand<T>
   where T : class
 {
   /// <summary>
   /// Adds a where clause.
-  /// https://docs.snowflake.com/en/sql-reference/constructs/where
+  /// https://docs.snowflake.com/en/sql-reference/constructs/where .
   /// </summary>
   /// <param name="predicate">The where predicate.</param>
   /// <returns>The snowflake command.</returns>
-  /// <exception cref="InvalidOperationException">Command already has a where clause!</exception>
+  /// <exception cref="InvalidOperationException">Command already has a where clause.</exception>
   /// <exception cref="NotSupportedException">If type is not supported.</exception>
   public SnowflakeCommand<T> Where(Expression<Func<T, bool>> predicate)
   {
-    if (this.Sql.Contains("WHERE"))
+    if (this.Sql.Contains("WHERE", StringComparison.Ordinal))
     {
       throw new InvalidOperationException("Command already has a where clause!");
     }
 
-		var replacements = new Dictionary<string, string>();
+    var replacements = new Dictionary<string, string>(StringComparer.Ordinal);
     WalkExpression(ref replacements, predicate);
 
     var whereBody = predicate.Body.ToString();
 
     foreach (var parameter in predicate.Parameters)
     {
-        whereBody = whereBody.Replace(parameter.Name + ".", string.Empty);
+      whereBody = whereBody.Replace(parameter.Name + ".", string.Empty, StringComparison.Ordinal);
     }
 
     foreach (var replacement in replacements)
     {
-        whereBody = whereBody.Replace(replacement.Key, replacement.Value);   
+      whereBody = whereBody.Replace(replacement.Key, replacement.Value, StringComparison.Ordinal);
     }
 
+#pragma warning disable MA0026 // Fix TODO comment
+
+    // TODO Add additional mappings, e.g. like https://github.com/phnx47/dapper-repositories/tree/main/src/SqlGenerator
+#pragma warning restore MA0026 // Fix TODO comment
     foreach (var item in new (string, string)[]
       {
           ("AndAlso", "AND"),
           ("OrElse", "OR"),
           ("==", "="),
-        // TODO Add additional mappings, e.g. like https://github.com/phnx47/dapper-repositories/tree/main/src/SqlGenerator
       })
     {
-      whereBody = whereBody.Replace(item.Item1, item.Item2);
+      whereBody = whereBody.Replace(item.Item1, item.Item2, StringComparison.Ordinal);
     }
 
     foreach (var property in this.Properties)
@@ -49,9 +65,9 @@ public partial class SnowflakeCommand<T>
       var propertyName = property.Value.Name;
       var propertyTableAlias = string.IsNullOrWhiteSpace(property.Value.Table)
         ? this.Table.Alias
-        : this.Joins.Single(join => join.Table == property.Value.Table).Alias;
+        : this.Joins.Single(join => string.Equals(join.Table, property.Value.Table, StringComparison.Ordinal)).Alias;
 
-      whereBody = whereBody.Replace($"{property.Key.Name}", $"{propertyTableAlias}.{propertyName}");
+      whereBody = whereBody.Replace($"{property.Key.Name}", $"{propertyTableAlias}.{propertyName}", StringComparison.Ordinal);
     }
 
     this.SqlBuilder.Append($" WHERE {whereBody.Trim()}");
@@ -61,15 +77,15 @@ public partial class SnowflakeCommand<T>
 
   /// <summary>
   /// Adds a where clause.
-  /// https://docs.snowflake.com/en/sql-reference/constructs/where
+  /// https://docs.snowflake.com/en/sql-reference/constructs/where .
   /// </summary>
   /// <param name="where">The where filter.</param>
   /// <returns>The snowflake command.</returns>
-  /// <exception cref="InvalidOperationException">Command already has a where clause!</exception>
-  /// <exception cref="ArgumentNullException">Value for where clause may not be empty!</exception>
+  /// <exception cref="InvalidOperationException">Command already has a where clause.</exception>
+  /// <exception cref="ArgumentNullException">Value for where clause may not be empty.</exception>
   public SnowflakeCommand<T> Where(string where)
   {
-    if (this.Sql.Contains("WHERE"))
+    if (this.Sql.Contains("WHERE", StringComparison.Ordinal))
     {
       throw new InvalidOperationException("Command already has a where clause!");
     }
@@ -79,7 +95,7 @@ public partial class SnowflakeCommand<T>
       throw new ArgumentNullException(nameof(where), "Value for where clause may not be empty!");
     }
 
-    this.SqlBuilder.Append($" {(where.Trim().StartsWith("WHERE", ignoreCase: true, null) ? where.Trim() : $"WHERE {where.Trim()}")}");
+    this.SqlBuilder.Append($" {(where.Trim().StartsWith("WHERE", ignoreCase: true, CultureInfo.InvariantCulture) ? where.Trim() : $"WHERE {where.Trim()}")}");
 
     return this;
   }
@@ -96,17 +112,18 @@ public partial class SnowflakeCommand<T>
     {
       case ExpressionType.MemberAccess:
         var replacementExpression = expression.ToString();
-        if (replacementExpression.Contains("value("))
+        if (replacementExpression.Contains("value(", StringComparison.Ordinal))
         {
           if (!replacements.ContainsKey(replacementExpression))
           {
             var invocation = Expression.Lambda(expression).Compile().DynamicInvoke();
             var replacementType = invocation!.GetType().ToString();
-            var replacementValue = replacementType == "System.String" ? $"\"{invocation}\"" : invocation.ToString();
+            var replacementValue = string.Equals(replacementType, "System.String", StringComparison.Ordinal) ? $"\"{invocation}\"" : invocation.ToString();
 
-            replacements.Add(replacementExpression, replacementValue!.ToString());
+            replacements.Add(replacementExpression, replacementValue!);
           }
         }
+
         break;
 
       case ExpressionType.GreaterThan:
@@ -127,6 +144,7 @@ public partial class SnowflakeCommand<T>
         {
           WalkExpression(ref replacements, argument);
         }
+
         break;
 
       case ExpressionType.Lambda:

@@ -20,7 +20,9 @@
     "pre-push": "npm run tool:restore && npm run build:prod && npm run test:unit && npm run test:quality",
     "test:quality": "dotnet tool run roslynator analyze -o ./roslynator.yml --severity-level hidden",
     "test:unit": "dotnet test Snowflake.Data.Xt.sln --collect:\"XPlat Code Coverage\" --logger:\"junit;LogFilePath=../../junit/junit-test-result.xml\" && dotnet tool run reportgenerator -reports:\"**/*/coverage.cobertura.xml\" -targetdir:\"coverage\" -reporttypes:\"Cobertura;HtmlInline\"",
-    "tool:restore": "dotnet tool restore"
+    "tool:restore": "dotnet tool restore",
+    "update:npm": "npm update",
+    "update:nuget": "dotnet tool run dotnet-outdated -u"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",

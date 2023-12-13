@@ -26,5 +26,4 @@
   <ItemGroup>
     <ProjectReference Include="..\src\Snowflake.Data.Xt.csproj" />
   </ItemGroup>
-
 </Project>
