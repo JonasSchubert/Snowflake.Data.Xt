@@ -36,8 +36,9 @@ public partial class SnowflakeCommand<T>
     this.WriteLogInformation(this.Sql);
     command.CommandText = this.Sql;
 
-    this.WriteLogInformation(string.Format(CultureInfo.InvariantCulture, "Adding {0} parameters.", parameterList?.Count ?? 0));
-    foreach (var parameter in parameterList ?? new List<(string, DbType, object)>())
+    var totalParameterList = this.ParameterList.Concat(parameterList ?? new List<(string, DbType, object)>()).ToList();
+    this.WriteLogInformation(string.Format(CultureInfo.InvariantCulture, "Adding {0} parameters.", totalParameterList.Count));
+    foreach (var parameter in totalParameterList)
     {
       command.AddParameter(parameter.Item1, parameter.Item2, parameter.Item3);
     }

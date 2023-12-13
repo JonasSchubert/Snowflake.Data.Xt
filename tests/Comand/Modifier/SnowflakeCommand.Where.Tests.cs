@@ -5,87 +5,81 @@ public class SnowflakeCommandWhereTests
   [Fact]
   public void WherePredicate_ShouldFill_SELECT_FROM_ForSimpleClass_AndOneWhere()
   {
-    // Arrange
+    // Arrange && Act
     var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
       .Where(item => item.Property1 == "test");
 
-    // Act
-    var sql = command.Sql;
-
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = \"test\")");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = \"test\")");
+    command.ParameterList.Count.Should().Be(0);
   }
 
   [Fact]
   public void WherePredicate_ShouldFill_SELECT_FROM_ForSimpleClass_AndOneWhereWithParameter()
   {
-    // Arrange
+    // Arrange && ACt
     var testProperty = "test";
     var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
       .Where(item => item.Property1 == testProperty);
 
-    // Act
-    var sql = command.Sql;
-
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = \"test\")");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = ?)");
+    command.ParameterList.Count.Should().Be(1);
+    command.ParameterList[0].Item1.Should().Be("1");
+    command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
+    command.ParameterList[0].Item3.Should().Be("\"test\"");
   }
 
   [Fact]
   public void WherePredicate_ShouldFill_SELECT_FROM_JOIN_ForClassWithJoin_AndMultipleWhere()
   {
-    // Arrange
+    // Arrange && Act
     var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
       .Where(item => item.Id == 2 && item.Property1 == "test");
 
-    // Act
-    var sql = command.Sql;
-
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
+    command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
+    command.ParameterList.Count.Should().Be(0);
   }
 
   [Fact]
   public void WherePredicate_ShouldFill_SELECT_FROM_ForSimpleClass_AndMultipleWhereWithParameter()
   {
-    // Arrange
+    // Arrange && Act
     var testProperty = "test";
     var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
       .Where(item => item.Property1 == testProperty || (item.Id > 4 && item.Id < 10));
 
-    // Act
-    var sql = command.Sql;
-
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE ((a.PROP_1 = \"test\") OR ((a.ID > 4) AND (a.ID < 10)))");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE ((a.PROP_1 = ?) OR ((a.ID > 4) AND (a.ID < 10)))");
+    command.ParameterList.Count.Should().Be(1);
+    command.ParameterList[0].Item1.Should().Be("1");
+    command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
+    command.ParameterList[0].Item3.Should().Be("\"test\"");
   }
 
   [Fact]
   public void WhereString_ShouldFill_SELECT_FROM_ForSimpleClass()
   {
-    // Arrange
+    // Arrange && Act
     var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
       .Where("a.ID != 2");
 
-    // Act
-    var sql = command.Sql;
-
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE a.ID != 2");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE a.ID != 2");
+    command.ParameterList.Count.Should().Be(0);
   }
 
   [Fact]
   public void WhereString_ShouldFill_SELECT_FROM_JOIN_ForClassWithJoin()
   {
-    // Arrange
+    // Arrange && Act
     var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
       .Where("WHERE bar.PROP_2 == \"test\"");
 
-    // Act
-    var sql = command.Sql;
-
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.PROP_2 == \"test\"");
+    command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.PROP_2 == \"test\"");
+    command.ParameterList.Count.Should().Be(0);
   }
 
   [Fact]
@@ -120,9 +114,7 @@ public class SnowflakeCommandWhereTests
   {
     // Arrange && Act
     var command = () => new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
-# pragma warning disable CS8604
       .Where(where);
-# pragma warning restore CS8604
 
     // Assert
     command.Should().Throw<ArgumentNullException>().WithMessage("Value for where clause may not be empty! (Parameter 'where')");

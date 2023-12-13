@@ -117,6 +117,11 @@ public partial class SnowflakeCommand<T>
   public IList<SnowflakeJoinAttribute> Joins { get; }
 
   /// <summary>
+  /// Gets or sets the parameter list for the query.
+  /// </summary>
+  public IList<(string, DbType, object)> ParameterList { get; set; } = new List<(string, DbType, object)>();
+
+  /// <summary>
   /// Gets the properties dictionary.
   /// </summary>
   public IDictionary<PropertyInfo, SnowflakeColumnAttribute> Properties { get; }

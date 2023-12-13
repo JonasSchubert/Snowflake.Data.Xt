@@ -32,7 +32,7 @@ public partial class SnowflakeCommand<T>
     }
 
     var replacements = new Dictionary<string, string>(StringComparer.Ordinal);
-    WalkExpression(ref replacements, predicate);
+    this.WalkExpression(ref replacements, predicate);
 
     var whereBody = predicate.Body.ToString();
 
@@ -43,7 +43,7 @@ public partial class SnowflakeCommand<T>
 
     foreach (var replacement in replacements)
     {
-      whereBody = whereBody.Replace(replacement.Key, replacement.Value, StringComparison.Ordinal);
+      whereBody = whereBody.Replace(replacement.Key, "?", StringComparison.Ordinal);
     }
 
 #pragma warning disable MA0026 // Fix TODO comment
@@ -106,7 +106,7 @@ public partial class SnowflakeCommand<T>
   /// <param name="replacements">The replacements.</param>
   /// <param name="expression">The expression.</param>
   /// <exception cref="NotSupportedException">If type is not supported.</exception>
-  private static void WalkExpression(ref Dictionary<string, string> replacements, Expression expression)
+  private void WalkExpression(ref Dictionary<string, string> replacements, Expression expression)
   {
     switch (expression.NodeType)
     {
@@ -117,10 +117,15 @@ public partial class SnowflakeCommand<T>
           if (!replacements.ContainsKey(replacementExpression))
           {
             var invocation = Expression.Lambda(expression).Compile().DynamicInvoke();
-            var replacementType = invocation!.GetType().ToString();
-            var replacementValue = string.Equals(replacementType, "System.String", StringComparison.Ordinal) ? $"\"{invocation}\"" : invocation.ToString();
 
-            replacements.Add(replacementExpression, replacementValue!);
+            var whereParameterType = invocation!.GetType();
+            var whereParameterValue = string.Equals(whereParameterType.ToString(), "System.String", StringComparison.Ordinal) ? $"\"{invocation}\"" : invocation.ToString() !;
+
+            var dbType = this.typeMap[whereParameterType];
+            var parameterIndex = string.Format(CultureInfo.InvariantCulture, "{0}", this.ParameterList.Count + 1);
+            this.ParameterList.Add((parameterIndex, dbType, whereParameterValue));
+
+            replacements.Add(replacementExpression, whereParameterValue);
           }
         }
 
@@ -134,22 +139,22 @@ public partial class SnowflakeCommand<T>
       case ExpressionType.AndAlso:
       case ExpressionType.Equal:
         var binaryExpression = expression as BinaryExpression;
-        WalkExpression(ref replacements, binaryExpression!.Left);
-        WalkExpression(ref replacements, binaryExpression!.Right);
+        this.WalkExpression(ref replacements, binaryExpression!.Left);
+        this.WalkExpression(ref replacements, binaryExpression!.Right);
         break;
 
       case ExpressionType.Call:
         var methodCallExpression = expression as MethodCallExpression;
         foreach (var argument in methodCallExpression!.Arguments)
         {
-          WalkExpression(ref replacements, argument);
+          this.WalkExpression(ref replacements, argument);
         }
 
         break;
 
       case ExpressionType.Lambda:
         var lambdaExpression = expression as LambdaExpression;
-        WalkExpression(ref replacements, lambdaExpression!.Body);
+        this.WalkExpression(ref replacements, lambdaExpression!.Body);
         break;
 
       case ExpressionType.Constant:
