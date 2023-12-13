@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.2.0...v1.3.0) (2023-12-13)
+
+
+### Features
+
+* **where-clause:** reduce risk for injections ([1f1c0dd](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/1f1c0dd5e66e5be82a8daec62a0e3a496c8b55a6))
+
 # [1.2.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.1.1...v1.2.0) (2023-12-13)
 
 
