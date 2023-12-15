@@ -13,7 +13,6 @@
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>Snowflake,Fluent</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <RootNamespace>Snowflake.Data.Xt</RootNamespace>
     <Version>1.3.0</Version>
     <AssemblyVersion>1.3.0</AssemblyVersion>
