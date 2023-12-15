@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.0...v1.3.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* **project:** remove duplicated xml attribute ([da970d6](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/da970d6a78234af158181e434b9c25daf48351af))
+
 # [1.3.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.2.0...v1.3.0) (2023-12-13)
 
 
