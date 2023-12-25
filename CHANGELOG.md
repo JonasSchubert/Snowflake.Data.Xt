@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.1...v1.3.2) (2023-12-25)
+
+
+### Bug Fixes
+
+* **deps:** bump Snowflake.Data from 2.1.4 to 2.1.5 ([#13](https://github.com/JonasSchubert/Snowflake.Data.Xt/issues/13)) ([d403ac7](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/d403ac7d0b1f56b21fdfc17f8b8fb40850293d68))
+
 ## [1.3.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.0...v1.3.1) (2023-12-15)
 
 
