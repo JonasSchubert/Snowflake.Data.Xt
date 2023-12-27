@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.2...v1.3.3) (2023-12-27)
+
+
+### Bug Fixes
+
+* **where:** set correct parameter value ([690f183](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/690f18328ababd7f042c7ab718aa42b9af1b1173))
+
 ## [1.3.2](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.1...v1.3.2) (2023-12-25)
 
 
