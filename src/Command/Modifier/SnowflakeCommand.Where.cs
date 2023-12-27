@@ -119,7 +119,7 @@ public partial class SnowflakeCommand<T>
             var invocation = Expression.Lambda(expression).Compile().DynamicInvoke();
 
             var whereParameterType = invocation!.GetType();
-            var whereParameterValue = string.Equals(whereParameterType.ToString(), "System.String", StringComparison.Ordinal) ? $"\"{invocation}\"" : invocation.ToString() !;
+            var whereParameterValue = invocation!.ToString() !;
 
             var dbType = this.typeMap[whereParameterType];
             var parameterIndex = string.Format(CultureInfo.InvariantCulture, "{0}", this.ParameterList.Count + 1);
