@@ -27,7 +27,7 @@ public class SnowflakeCommandWhereTests
     command.ParameterList.Count.Should().Be(1);
     command.ParameterList[0].Item1.Should().Be("1");
     command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
-    command.ParameterList[0].Item3.Should().Be("\"test\"");
+    command.ParameterList[0].Item3.Should().Be("test");
   }
 
   [Fact]
@@ -55,7 +55,7 @@ public class SnowflakeCommandWhereTests
     command.ParameterList.Count.Should().Be(1);
     command.ParameterList[0].Item1.Should().Be("1");
     command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
-    command.ParameterList[0].Item3.Should().Be("\"test\"");
+    command.ParameterList[0].Item3.Should().Be("test");
   }
 
   [Fact]
