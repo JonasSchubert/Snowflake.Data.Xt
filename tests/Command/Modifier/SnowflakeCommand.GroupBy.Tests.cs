@@ -13,7 +13,7 @@ public class SnowflakeCommandGroupByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a GROUP BY a.PROP_1");
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a GROUP BY a.PROP_1");
   }
 
   [Fact]
@@ -27,7 +27,7 @@ public class SnowflakeCommandGroupByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY foo.PROP_1, bar.PROP_2");
+    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY foo.PROP_1, bar.Prop_2");
   }
 
   [Fact]
@@ -41,7 +41,7 @@ public class SnowflakeCommandGroupByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a GROUP BY a.ID");
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a GROUP BY a.ID");
   }
 
   [Fact]
@@ -49,13 +49,13 @@ public class SnowflakeCommandGroupByTests
   {
     // Arrange
     var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
-      .GroupBy("GROUP BY bar.PROP_2");
+      .GroupBy("GROUP BY bar.Prop_2");
 
     // Act
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY bar.PROP_2");
+    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY bar.Prop_2");
   }
 
   [Fact]
@@ -77,7 +77,7 @@ public class SnowflakeCommandGroupByTests
       .GroupBy("GROUP BY bar.PROP_1");
 
     // Assert
-    command.Should().Throw<ArgumentException>().WithMessage("Group By may only contain valid properties (bar.ID, foo.PROP_1, bar.PROP_2)! \"bar.PROP_1\" is not allowed!");
+    command.Should().Throw<ArgumentException>().WithMessage("Group By may only contain valid properties (bar.ID, foo.PROP_1, bar.Prop_2)! \"bar.PROP_1\" is not allowed!");
   }
 
   [Fact]

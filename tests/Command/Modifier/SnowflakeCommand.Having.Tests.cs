@@ -14,7 +14,7 @@ public class SnowflakeCommandHavingTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a GROUP BY a.ID HAVING count(*) > 1");
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a GROUP BY a.ID HAVING count(*) > 1");
   }
 
   [Fact]
@@ -29,7 +29,7 @@ public class SnowflakeCommandHavingTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY bar.ID HAVING count(*) > 1");
+    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID GROUP BY bar.ID HAVING count(*) > 1");
   }
 
   [Fact]

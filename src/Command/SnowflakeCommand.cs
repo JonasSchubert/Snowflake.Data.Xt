@@ -60,7 +60,7 @@ public partial class SnowflakeCommand<T>
         var attribute = (SnowflakeColumnAttribute)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), inherit: true).Single();
         if (string.IsNullOrWhiteSpace(attribute.Name))
         {
-          attribute.Name = string.Concat(propertyInfo.Name.Select((_, index) => index > 0 && char.IsUpper(_) ? "_" + _.ToString() : _.ToString())).ToUpperInvariant();
+          attribute.Name = propertyInfo.Name;
         }
 
         return (propertyInfo, attribute);
@@ -70,7 +70,7 @@ public partial class SnowflakeCommand<T>
     this.Table = (SnowflakeTableAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeTableAttribute)) !;
     if (string.IsNullOrWhiteSpace(this.Table.Name))
     {
-      this.Table.Name = string.Concat(typeof(T).Name.Select((_, index) => index > 0 && char.IsUpper(_) ? "_" + _.ToString() : _.ToString())).ToUpperInvariant();
+      this.Table.Name = typeof(T).Name;
     }
 
     var alphabetIndex = 0;

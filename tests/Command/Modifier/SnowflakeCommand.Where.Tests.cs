@@ -10,7 +10,7 @@ public class SnowflakeCommandWhereTests
       .Where(item => item.Property1 == "test");
 
     // Assert
-    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = \"test\")");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a WHERE (a.PROP_1 = \"test\")");
     command.ParameterList.Count.Should().Be(0);
   }
 
@@ -23,7 +23,7 @@ public class SnowflakeCommandWhereTests
       .Where(item => item.Property1 == testProperty);
 
     // Assert
-    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE (a.PROP_1 = ?)");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a WHERE (a.PROP_1 = ?)");
     command.ParameterList.Count.Should().Be(1);
     command.ParameterList[0].Item1.Should().Be("1");
     command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
@@ -38,7 +38,7 @@ public class SnowflakeCommandWhereTests
       .Where(item => item.Id == 2 && item.Property1 == "test");
 
     // Assert
-    command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
+    command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
     command.ParameterList.Count.Should().Be(0);
   }
 
@@ -51,7 +51,7 @@ public class SnowflakeCommandWhereTests
       .Where(item => item.Property1 == testProperty || (item.Id > 4 && item.Id < 10));
 
     // Assert
-    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE ((a.PROP_1 = ?) OR ((a.ID > 4) AND (a.ID < 10)))");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a WHERE ((a.PROP_1 = ?) OR ((a.ID > 4) AND (a.ID < 10)))");
     command.ParameterList.Count.Should().Be(1);
     command.ParameterList[0].Item1.Should().Be("1");
     command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
@@ -66,7 +66,7 @@ public class SnowflakeCommandWhereTests
       .Where("a.ID != 2");
 
     // Assert
-    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a WHERE a.ID != 2");
+    command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a WHERE a.ID != 2");
     command.ParameterList.Count.Should().Be(0);
   }
 
@@ -75,10 +75,10 @@ public class SnowflakeCommandWhereTests
   {
     // Arrange && Act
     var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
-      .Where("WHERE bar.PROP_2 == \"test\"");
+      .Where("WHERE bar.Prop_2 == \"test\"");
 
     // Assert
-    command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.PROP_2 == \"test\"");
+    command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.Prop_2 == \"test\"");
     command.ParameterList.Count.Should().Be(0);
   }
 

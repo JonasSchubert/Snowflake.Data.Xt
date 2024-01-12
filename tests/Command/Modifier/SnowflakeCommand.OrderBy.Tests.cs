@@ -13,7 +13,7 @@ public class SnowflakeCommandOrderByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a ORDER BY a.PROP_1 ASC");
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a ORDER BY a.PROP_1 ASC");
   }
 
   [Fact]
@@ -27,7 +27,7 @@ public class SnowflakeCommandOrderByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.PROP_2 ASC");
+    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.Prop_2 ASC");
   }
 
   [Fact]
@@ -41,7 +41,7 @@ public class SnowflakeCommandOrderByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a ORDER BY a.PROP_1 DESC");
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a ORDER BY a.PROP_1 DESC");
   }
 
   [Fact]
@@ -55,7 +55,7 @@ public class SnowflakeCommandOrderByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.PROP_2 DESC");
+    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.Prop_2 DESC");
   }
 
   [Fact]
@@ -69,7 +69,7 @@ public class SnowflakeCommandOrderByTests
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SNOWFLAKE_CLASS1 AS a ORDER BY a.ID ASC");
+    sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a ORDER BY a.ID ASC");
   }
 
   [Fact]
@@ -77,13 +77,13 @@ public class SnowflakeCommandOrderByTests
   {
     // Arrange
     var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
-      .OrderBy("ORDER BY bar.PROP_2 ASC");
+      .OrderBy("ORDER BY bar.Prop_2 ASC");
 
     // Act
     var sql = command.Sql;
 
     // Assert
-    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.PROP_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY bar.PROP_2 ASC");
+    sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY bar.Prop_2 ASC");
   }
 
   [Fact]
@@ -105,7 +105,7 @@ public class SnowflakeCommandOrderByTests
       .OrderBy("ORDER BY bar.PROP_1");
 
     // Assert
-    command.Should().Throw<ArgumentException>().WithMessage("Order By may only contain valid properties (bar.ID, foo.PROP_1, bar.PROP_2)! \"bar.PROP_1\" is not allowed!");
+    command.Should().Throw<ArgumentException>().WithMessage("Order By may only contain valid properties (bar.ID, foo.PROP_1, bar.Prop_2)! \"bar.PROP_1\" is not allowed!");
   }
 
   [Fact]
