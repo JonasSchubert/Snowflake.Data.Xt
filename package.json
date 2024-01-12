@@ -1,6 +1,6 @@
 {
   "name": "snowflake-data-xt",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Nuget package for fluent snowflake access.",
   "author": {
     "name": "Jonas Schubert",

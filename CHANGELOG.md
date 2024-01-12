@@ -1,3 +1,10 @@
+## [1.3.4](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.3...v1.3.4) (2024-01-12)
+
+
+### Bug Fixes
+
+* **attributes:** do not modify provided table or attribute name ([4d07c7f](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/4d07c7faa651176f9d86d9d3d2d0c425c37de2ea))
+
 ## [1.3.3](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.2...v1.3.3) (2023-12-27)
 
 
