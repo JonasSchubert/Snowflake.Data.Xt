@@ -1,3 +1,10 @@
+## [1.3.5](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.4...v1.3.5) (2024-01-15)
+
+
+### Bug Fixes
+
+* **column:** fallback to property name if not provided in attribute ([c12e00e](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/c12e00e690761bc27400f60b22e7c94116e8946f))
+
 ## [1.3.4](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.3...v1.3.4) (2024-01-12)
 
 
