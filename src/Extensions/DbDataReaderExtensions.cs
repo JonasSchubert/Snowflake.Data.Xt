@@ -45,6 +45,11 @@ public static class DbDataReaderExtensions
           continue;
         }
 
+        if (string.IsNullOrWhiteSpace(snowflakeColumn.Name))
+        {
+          snowflakeColumn.Name = propertyInfo.Name;
+        }
+
         DbDataReaderExtensions.SetPropertyValue(property, item, dbDataReader, snowflakeColumn);
       }
 
