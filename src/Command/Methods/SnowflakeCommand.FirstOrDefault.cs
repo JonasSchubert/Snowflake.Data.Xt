@@ -24,15 +24,34 @@ public partial class SnowflakeCommand<T>
   /// <returns>The first item if found, otherwise null.</returns>
   public T? FirstOrDefault(IList<(string, DbType, object)>? parameterList = default)
   {
+    if (this.snowflakeDbConnection is null)
+    {
+      using var dbConnection = new SnowflakeDbConnection
+      {
+        ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
+      };
+      dbConnection.Open();
+
+      var item = this.FirstOrDefault(dbConnection, parameterList);
+
+      dbConnection.Close();
+
+      return item;
+    }
+
+    if (!this.snowflakeDbConnection.IsOpen())
+    {
+      this.snowflakeDbConnection.Open();
+    }
+
+    return this.FirstOrDefault(this.snowflakeDbConnection, parameterList);
+  }
+
+  private T? FirstOrDefault(SnowflakeDbConnection snowflakeDbConnection, IList<(string, DbType, object)>? parameterList = default)
+  {
     this.WriteLogInformation("Performing snowflake command to retrieve one entity (FirstOrDefault).");
 
-    using var dbConnection = new SnowflakeDbConnection
-    {
-      ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
-    };
-    dbConnection.Open();
-
-    var command = dbConnection.CreateCommand();
+    var command = snowflakeDbConnection.CreateCommand();
     this.WriteLogInformation(this.Sql);
     command.CommandText = this.Sql;
 
@@ -47,8 +66,6 @@ public partial class SnowflakeCommand<T>
     var item = reader.FirstOrDefault<T>();
 
     this.WriteLogInformation($"Found{(item is not null ? string.Empty : " no")} item for the provided query.");
-
-    dbConnection.Close();
 
     return item;
   }

@@ -24,15 +24,34 @@ public partial class SnowflakeCommand<T>
   /// <returns>A list of items.</returns>
   public IList<T> ToList(IList<(string, DbType, object)>? parameterList = default)
   {
+    if (this.snowflakeDbConnection is null)
+    {
+      using var dbConnection = new SnowflakeDbConnection
+      {
+        ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
+      };
+      dbConnection.Open();
+
+      var list = this.ToList(dbConnection, parameterList);
+
+      dbConnection.Close();
+
+      return list;
+    }
+
+    if (!this.snowflakeDbConnection.IsOpen())
+    {
+      this.snowflakeDbConnection.Open();
+    }
+
+    return this.ToList(this.snowflakeDbConnection, parameterList);
+  }
+
+  private IList<T> ToList(SnowflakeDbConnection snowflakeDbConnection, IList<(string, DbType, object)>? parameterList = default)
+  {
     this.WriteLogInformation("Performing snowflake command to retrieve a list of entities (ToList).");
 
-    using var dbConnection = new SnowflakeDbConnection
-    {
-      ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
-    };
-    dbConnection.Open();
-
-    var command = dbConnection.CreateCommand();
+    var command = snowflakeDbConnection.CreateCommand();
     this.WriteLogInformation(this.Sql);
     command.CommandText = this.Sql;
 
@@ -47,8 +66,6 @@ public partial class SnowflakeCommand<T>
     var list = reader.ToList<T>();
 
     this.WriteLogInformation($"Found {list.Count} items for the provided query.");
-
-    dbConnection.Close();
 
     return list;
   }

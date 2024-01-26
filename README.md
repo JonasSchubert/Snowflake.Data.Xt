@@ -76,6 +76,52 @@ public class ExamplesRepository : IExamplesRepository
 }
 ```
 
+You can also reuse a snowflake database connection:
+
+```c#
+using System.Data;
+using System.Threading;
+using System.Threading.Tasks;
+using Snowflake.Data.Client;
+using Snowflake.Data.Xt;
+
+namespace SnowflakeApplication;
+
+public class ExamplesRepository : IExamplesRepository
+{
+  public async Task<Owner> GetByAddressAsync(string address, CancellationToken cancellationToken = default)
+  {
+    // Setup of the snowflake database connection
+    using var snowflakeDbConnection = new SnowflakeDbConnection
+    {
+      ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
+    };
+
+    // If you do not open the connection here, the first command which will run, will open it for you
+    await snowflakeDbConnection
+      .OpenAsync(cancellationToken)
+      .ConfigureAwait(false);
+
+    var example = new SnowflakeDbCommand<Example>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor
+      .Where(item => item.Address == address)
+      .FirstOrDefaultAsync([], cancellationToken)
+      .ConfigureAwait(false);
+
+    var owner = new SnowflakeDbCommand<Owner>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor and it will be reused
+      .Where(item => item.Name == example.OwnerName)
+      .FirstOrDefaultAsync([], cancellationToken)
+      .ConfigureAwait(false);
+
+    // Do not forget to close the connection
+    await snowflakeDbConnection
+      .CloseAsync(cancellationToken)
+      .ConfigureAwait(false);
+
+    return owner;
+  }
+}
+```
+
 #### Modifier
 
 You can add multiple modifiers to you command:

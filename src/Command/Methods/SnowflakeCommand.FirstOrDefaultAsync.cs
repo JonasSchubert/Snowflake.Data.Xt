@@ -25,15 +25,34 @@ public partial class SnowflakeCommand<T>
   /// <returns>The first item if found, otherwise null.</returns>
   public async Task<T?> FirstOrDefaultAsync(IList<(string, DbType, object)>? parameterList = default, CancellationToken cancellationToken = default)
   {
+    if (this.snowflakeDbConnection is null)
+    {
+      using var dbConnection = new SnowflakeDbConnection
+      {
+        ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
+      };
+      await dbConnection.OpenAsync(cancellationToken).ConfigureAwait(false);
+
+      var item = await this.FirstOrDefaultAsync(dbConnection, parameterList, cancellationToken).ConfigureAwait(false);
+
+      await dbConnection.CloseAsync(cancellationToken).ConfigureAwait(false);
+
+      return item;
+    }
+
+    if (!this.snowflakeDbConnection.IsOpen())
+    {
+      await this.snowflakeDbConnection.OpenAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    return await this.FirstOrDefaultAsync(this.snowflakeDbConnection, parameterList, cancellationToken).ConfigureAwait(false);
+  }
+
+  private async Task<T?> FirstOrDefaultAsync(SnowflakeDbConnection snowflakeDbConnection, IList<(string, DbType, object)>? parameterList = default, CancellationToken cancellationToken = default)
+  {
     this.WriteLogInformation("Performing snowflake command to retrieve one entity (FirstOrDefaultAsync).");
 
-    using var dbConnection = new SnowflakeDbConnection
-    {
-      ConnectionString = EnvironmentExtensions.GetSnowflakeConnectionString(),
-    };
-    await dbConnection.OpenAsync(cancellationToken).ConfigureAwait(false);
-
-    var command = dbConnection.CreateCommand();
+    var command = snowflakeDbConnection.CreateCommand();
     this.WriteLogInformation(this.Sql);
     command.CommandText = this.Sql;
 
@@ -48,8 +67,6 @@ public partial class SnowflakeCommand<T>
     var item = reader.FirstOrDefault<T>();
 
     this.WriteLogInformation($"Found{(item is not null ? string.Empty : " no")} item for the provided query.");
-
-    await dbConnection.CloseAsync(cancellationToken).ConfigureAwait(false);
 
     return item;
   }
