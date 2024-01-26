@@ -2,7 +2,7 @@
 // <copyright file="SnowflakeJoinAttribute.cs" company="Jonas Schubert">
 //     Copyright (c) Jonas Schubert. All rights reserved.
 // </copyright>
-// <author>EWP Team Fürth</author>
+// <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
 namespace Snowflake.Data.Xt;
