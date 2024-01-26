@@ -8,6 +8,7 @@
 
 # User-specific files
 coverage/
+junit/
 codeanalzsis.sarif.json
 roslynator.yml
 *.rsuser
