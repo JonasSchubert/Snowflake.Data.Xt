@@ -68,7 +68,8 @@ public class ExamplesRepository : IExamplesRepository
     var list = await snowflakeCommand
       .ToListAsync(                             // Returns a list
         new List<(string, DbType, object)> { }, // Parameter list if required, here empty
-        cancellationToken);
+        cancellationToken)
+      .ConfigureAwait(false);
 
     return list;
   }
@@ -85,7 +86,7 @@ You can add multiple modifiers to you command:
 | [`Having`](./src/Command/Modifier/SnowflakeCommand.Having.cs) | `string text` | Add a having predicate. e.g. `HAVING count(*) > 10` |
 | [`IsDistinct`](./src/Command/Modifier/SnowflakeCommand.IsDistinct.cs) | `-` | The select statement will be distinct. |
 | [`OrderBy`](./src/Command/Modifier/SnowflakeCommand.OrderBy.cs) | `string text` or a predicate | Add an order by text. e.g. `PLANR ASC` |
-| [`Select`](./src/Command/Modifier/SnowflakeCommand.Select.cs) |  a predicate | Add an order by text. e.g. `PLANR ASC` |
+| [`Select`](./src/Command/Modifier/SnowflakeCommand.Select.cs) |  a predicate | Add a select statement to only query selected columns. |
 | [`Top`](./src/Command/Modifier/SnowflakeCommand.Top.cs) | `int amount` | The select statement will return the `TOP AMOUNT` found entries. |
 | [`Where`](./src/Command/Modifier/SnowflakeCommand.Where.cs) | `string text` or a predicate | Add a where clause text. e.g. `PLANR IS NOT NULL AND PLANR LIKE "%test"` |
 
@@ -121,7 +122,7 @@ You can query for a single entry or a list - sync or async:
 ```
 MIT License
 
-Copyright (c) 2023 Jonas Schubert
+Copyright (c) 2023-2024 Jonas Schubert
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
