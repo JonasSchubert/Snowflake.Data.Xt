@@ -4,7 +4,7 @@
     <id>Snowflake.Data.Xt</id>
     <Version>1.3.5</Version>
     <dependencies>
-      <depdendency id="Snowflake.Data" version="2.1.2" />
+      <depdendency id="Snowflake.Data" version="2.2.0" />
     </dependencies>
   </metadata>
 </package>
