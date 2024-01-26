@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.5...v1.4.0) (2024-01-26)
+
+
+### Features
+
+* **connection:** reuse one connection for better performance ([ce21000](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/ce210003598d6b886e25481825d2fcd0c8efaedd))
+
 ## [1.3.5](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.4...v1.3.5) (2024-01-15)
 
 
