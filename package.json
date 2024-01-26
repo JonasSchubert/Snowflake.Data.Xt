@@ -31,5 +31,13 @@
     "commitlint-presets": "^1.0.3",
     "husky": "^8.0.3",
     "is-ci": "^3.0.1"
+  },
+  "commitlint": {
+    "extends": [
+      "./node_modules/commitlint-presets/index.js"
+    ]
+  },
+  "release": {
+    "extends": "semantic-release-presets/presets/github/.releaserc.main-nuget.json"
   }
 }
