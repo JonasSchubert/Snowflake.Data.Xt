@@ -8,7 +8,6 @@
 using System.Reflection;
 using System.Text;
 using log4net;
-using Snowflake.Data.Client;
 
 namespace Snowflake.Data.Xt;
 

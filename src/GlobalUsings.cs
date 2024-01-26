@@ -6,5 +6,7 @@
 //-----------------------------------------------------------------------
 
 global using System.Data;
+global using System.Globalization;
 global using System.Linq.Expressions;
 global using System.Text.RegularExpressions;
+global using Snowflake.Data.Client;

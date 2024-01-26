@@ -5,8 +5,6 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
-using System.Globalization;
-
 namespace Snowflake.Data.Xt;
 
 /// <summary>
