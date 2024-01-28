@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.4.0...v1.5.0) (2024-01-28)
+
+
+### Bug Fixes
+
+* **constructor:** add missing ctor accepting connection only ([ba85756](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/ba857562f024574150fa97feb9872d1842400189))
+
+
+### Features
+
+* **methods:** add overloads without parameter list for asyncs ([15e78ad](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/15e78ade051c4ed57e264d455e25ed3051ed6f29))
+
 # [1.4.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.3.5...v1.4.0) (2024-01-26)
 
 
