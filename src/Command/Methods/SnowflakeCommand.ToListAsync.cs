@@ -17,6 +17,16 @@ public partial class SnowflakeCommand<T>
   /// <summary>
   /// Gets a list of items for a query.
   /// </summary>
+  /// <param name="cancellationToken">The cancellation token.</param>
+  /// <returns>A list of items.</returns>
+  public Task<IList<T>> ToListAsync(CancellationToken cancellationToken = default)
+  {
+    return this.ToListAsync(new List<(string, DbType, object)>() { }, cancellationToken);
+  }
+
+  /// <summary>
+  /// Gets a list of items for a query.
+  /// </summary>
   /// <param name="parameterList">The parameter list.</param>
   /// <param name="cancellationToken">The cancellation token.</param>
   /// <returns>A list of items.</returns>

@@ -17,6 +17,16 @@ public partial class SnowflakeCommand<T>
   /// <summary>
   /// Gets the first item for a query or null if none is found.
   /// </summary>
+  /// <param name="cancellationToken">The cancellation token.</param>
+  /// <returns>The first item if found, otherwise null.</returns>
+  public Task<T?> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
+  {
+    return this.FirstOrDefaultAsync(new List<(string, DbType, object)>() { }, cancellationToken);
+  }
+
+  /// <summary>
+  /// Gets the first item for a query or null if none is found.
+  /// </summary>
   /// <param name="parameterList">The parameter list.</param>
   /// <param name="cancellationToken">The cancellation token.</param>
   /// <returns>The first item if found, otherwise null.</returns>
