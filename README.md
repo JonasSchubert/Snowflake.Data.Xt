@@ -104,12 +104,12 @@ public class ExamplesRepository : IExamplesRepository
 
     var example = new SnowflakeDbCommand<Example>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor
       .Where(item => item.Address == address)
-      .FirstOrDefaultAsync([], cancellationToken)
+      .FirstOrDefaultAsync(cancellationToken)
       .ConfigureAwait(false);
 
     var owner = new SnowflakeDbCommand<Owner>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor and it will be reused
       .Where(item => item.Name == example.OwnerName)
-      .FirstOrDefaultAsync([], cancellationToken)
+      .FirstOrDefaultAsync(cancellationToken)
       .ConfigureAwait(false);
 
     // Do not forget to close the connection

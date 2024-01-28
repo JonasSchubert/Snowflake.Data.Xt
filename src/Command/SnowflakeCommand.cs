@@ -41,10 +41,8 @@ public partial class SnowflakeCommand<T>
   /// <exception cref="ArgumentNullException">If either env variable for database or schema is not set, an argument null exception is being thrown.</exception>
   public SnowflakeCommand()
     : this(
-#pragma warning disable MA0015 // Specify the parameter name in ArgumentException
-      Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE") ?? throw new ArgumentNullException("SNOWFLAKE_DATABASE"),
-      Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA") ?? throw new ArgumentNullException("SNOWFLAKE_SCHEMA"),
-#pragma warning restore MA0015 // Specify the parameter name in ArgumentException
+      database: Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE") !,
+      schema: Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA") !,
       snowflakeDbConnection: null)
   {
   }
@@ -62,34 +60,36 @@ public partial class SnowflakeCommand<T>
   /// <summary>
   /// Initializes a new instance of the <see cref="SnowflakeCommand{T}"/> class.
   /// </summary>
+  /// <param name="snowflakeDbConnection">The snowflake database connection.</param>
+  public SnowflakeCommand(SnowflakeDbConnection snowflakeDbConnection)
+    : this(
+      database: Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE") !,
+      schema: Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA") !,
+      snowflakeDbConnection)
+  {
+  }
+
+  /// <summary>
+  /// Initializes a new instance of the <see cref="SnowflakeCommand{T}"/> class.
+  /// </summary>
   /// <param name="database">The database.</param>
   /// <param name="schema">The schema.</param>
   /// <param name="snowflakeDbConnection">The snowflake database connection.</param>
   public SnowflakeCommand(string database, string schema, SnowflakeDbConnection? snowflakeDbConnection)
   {
     this.snowflakeDbConnection = snowflakeDbConnection;
+#pragma warning disable SA1503
+    if (string.IsNullOrWhiteSpace(database)) throw new ArgumentException(string.Format("'{0}' is not a valid value for database.", database), nameof(database));
+    if (string.IsNullOrWhiteSpace(schema)) throw new ArgumentException(string.Format("'{0}' is not a valid value for schema.", schema), nameof(schema));
+#pragma warning restore SA1503
 
-    this.SqlBuilder = new StringBuilder("SELECT ");
-
-    this.Properties = typeof(T)
-      .GetProperties()
-      .Where(propertyInfo => propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), inherit: true).Length > 0)
-      .Select(propertyInfo =>
-      {
-        var attribute = (SnowflakeColumnAttribute)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), inherit: true).Single();
-        attribute.Name = string.IsNullOrWhiteSpace(attribute.Name) ? propertyInfo.Name : attribute.Name;
-
-        return (propertyInfo, attribute);
-      })
-      .ToDictionary(_ => _.propertyInfo, _ => _.attribute);
-
+    var alphabetIndex = 0;
     this.Table = (SnowflakeTableAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeTableAttribute)) !;
     if (string.IsNullOrWhiteSpace(this.Table.Name))
     {
       this.Table.Name = typeof(T).Name;
     }
 
-    var alphabetIndex = 0;
     if (string.IsNullOrWhiteSpace(this.Table.Alias))
     {
       this.Table.Alias = SnowflakeCommand<T>.Alphabet[alphabetIndex].ToString();
@@ -109,6 +109,17 @@ public partial class SnowflakeCommand<T>
       })
       .ToList();
 
+    this.Properties = typeof(T)
+      .GetProperties()
+      .Where(propertyInfo => propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), inherit: true).Length > 0)
+      .Select(propertyInfo =>
+      {
+        var attribute = (SnowflakeColumnAttribute)propertyInfo.GetCustomAttributes(typeof(SnowflakeColumnAttribute), inherit: true).Single();
+        attribute.Name = string.IsNullOrWhiteSpace(attribute.Name) ? propertyInfo.Name : attribute.Name;
+
+        return (propertyInfo, attribute);
+      })
+      .ToDictionary(_ => _.propertyInfo, _ => _.attribute);
     this.ValidProperties = this.Properties
       .Select(property =>
       {
@@ -121,6 +132,7 @@ public partial class SnowflakeCommand<T>
       .ToList();
     this.ValidPropertiesRegex = new Regex($"^({string.Join('|', this.ValidProperties)})$", RegexOptions.None, TimeSpan.FromSeconds(3));
 
+    this.SqlBuilder = new StringBuilder("SELECT ");
     this.AddColumns();
     this.AddFrom(database, schema);
     this.AddJoins(database, schema);
