@@ -27,9 +27,13 @@ dotnet_diagnostic.CA1305.severity = none
 dotnet_diagnostic.CA1707.severity = none
 dotnet_diagnostic.CS1710.severity = none
 dotnet_diagnostic.IDE0008.severity = none
+dotnet_diagnostic.IDE0028.severity = none
+dotnet_diagnostic.IDE0055.severity = none
 dotnet_diagnostic.IDE0058.severity = none
 dotnet_diagnostic.IDE0130.severity = none
 dotnet_diagnostic.IDE0160.severity = none
+dotnet_diagnostic.IDE0290.severity = none
+dotnet_diagnostic.IDE1006.severity = none
 
 # Organize usings
 dotnet_separate_import_directive_groups = true
