@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.5.0...v1.5.1) (2024-02-21)
+
+
+### Bug Fixes
+
+* **dependencies:** remove direct dependency to Meziantou.Analyzer ([d6bffee](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/d6bffee64d98b7ace36acbeebe35e378a3805c68))
+
 # [1.5.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.4.0...v1.5.0) (2024-01-28)
 
 
