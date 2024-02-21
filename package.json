@@ -17,7 +17,7 @@
     "build:prod": "dotnet clean && dotnet build -tl && dotnet publish src/Snowflake.Data.Xt.csproj -c Release -f net8.0",
     "format": "dotnet format ./Snowflake.Data.Xt.sln",
     "pack": "dotnet pack --configuration Release",
-    "prepare": "is-ci || husky install",
+    "prepare": "is-ci || husky",
     "pre-push": "npm run tool:restore && npm run build:prod && npm run test:unit && npm run test:quality",
     "test:quality": "dotnet tool run roslynator analyze -o ./roslynator.yml --severity-level hidden",
     "test:unit": "dotnet test Snowflake.Data.Xt.sln --collect:\"XPlat Code Coverage\" --logger:\"junit;LogFilePath=../junit/junit-test-result.xml\" && dotnet tool run reportgenerator -reports:\"**/*/coverage.cobertura.xml\" -targetdir:\"coverage\" -reporttypes:\"Cobertura;HtmlInline\"",
@@ -26,10 +26,10 @@
     "update:nuget": "dotnet tool run dotnet-outdated -u"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.6.0",
-    "@commitlint/config-conventional": "^18.6.0",
-    "commitlint-presets": "^1.0.3",
-    "husky": "^8.0.3",
+    "@commitlint/cli": "^18.6.1",
+    "@commitlint/config-conventional": "^18.6.2",
+    "commitlint-presets": "^1.0.4",
+    "husky": "^9.0.11",
     "is-ci": "^3.0.1"
   },
   "commitlint": {
