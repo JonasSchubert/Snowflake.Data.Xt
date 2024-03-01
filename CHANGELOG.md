@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.5.1...v1.6.0) (2024-03-01)
+
+
+### Features
+
+* **command:** allow join of tables on itself ([d53d6f9](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/d53d6f9d61b6160b699c40ce9985f102ca0e5ac8))
+* **nuget:** bump Snowflake.Data to v3.0.0 ([6cac371](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/6cac371fd3b665f3ba2fd158c7612b3368159c25))
+
 ## [1.5.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.5.0...v1.5.1) (2024-02-21)
 
 
