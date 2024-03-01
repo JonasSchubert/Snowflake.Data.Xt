@@ -18,11 +18,18 @@ public sealed class SnowflakeColumnAttribute : Attribute
   /// </summary>
   /// <param name="name">The name.</param>
   /// <param name="table">The table.</param>
-  public SnowflakeColumnAttribute(string? name = default, string? table = default)
+  /// <param name="alias">The alias.</param>
+  public SnowflakeColumnAttribute(string? name = default, string? table = default, string? alias = default)
   {
+    this.Alias = alias;
     this.Name = name ?? string.Empty;
     this.Table = table;
   }
+
+  /// <summary>
+  /// Gets the alias.
+  /// </summary>
+  public string? Alias { get; internal set; }
 
   /// <summary>
   /// Gets the name.
