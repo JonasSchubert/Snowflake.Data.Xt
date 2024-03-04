@@ -184,7 +184,7 @@ public partial class SnowflakeCommand<T>
       {
         var column = property.Value;
         var table = column.Table ?? this.Table.Name;
-        var tableAlias = column.Alias ?? (string.Equals(this.Table.Name, table, StringComparison.Ordinal)
+        var tableAlias = column.TableAlias ?? (string.Equals(this.Table.Name, table, StringComparison.Ordinal)
           ? this.Table.Alias ?? string.Empty
           : this.Joins.SingleOrDefault(join => string.Equals(join.Table, table, StringComparison.Ordinal))?.Alias ?? string.Empty);
 

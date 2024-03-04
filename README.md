@@ -100,7 +100,7 @@ public class Example
   [SnowflakeColumn(name: "ADDRESS", table: "COST_CENTER")]
   public string Address { get; set; }
 
-  [SnowflakeColumn(name: "IS_READY", table: "COST_CENTER", alias: "costCenter2")] // Alias must be provided
+  [SnowflakeColumn(name: "IS_READY", table: "COST_CENTER", tableAlias: "costCenter2")] // Alias must be provided
   public bool IsReady { get; set; }
 }
 ```
