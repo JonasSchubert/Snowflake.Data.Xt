@@ -76,7 +76,7 @@ public class ExamplesRepository : IExamplesRepository
 }
 ```
 
-You can also join a table on itself:
+You can also join a table on itself (if you provide an table alias):
 
 ```c#
 using System;
@@ -102,6 +102,35 @@ public class Example
 
   [SnowflakeColumn(name: "IS_READY", table: "COST_CENTER", tableAlias: "costCenter2")] // Alias must be provided
   public bool IsReady { get; set; }
+}
+```
+
+... and reuse same column names (if you provide an column alias):
+
+```c#
+using System;
+using Snowflake.Data.Xt;
+
+namespace SnowflakeApplication;
+
+[SnowflakeTable(
+  name: "COST_CENTER",
+  alias: "costCenter1")]
+[SnowflakeJoin(
+  table: "COST_CENTER",
+  alias: "costCenter2",
+  type: SnowflakeJoinAttribute.Left,
+  condition: "costCenter1.COST_CENTER_ID = costCenter2.COST_CENTER_ID")]
+public class Example
+{
+  [SnowflakeColumn(name: "VALUE")]
+  public decimal Value { get; set; }
+
+  [SnowflakeColumn(name: "ADDRESS", table: "COST_CENTER")]
+  public string Address { get; set; }
+
+  [SnowflakeColumn(name: "ADDRESS", columnAlias: "ADDRESS2", table: "COST_CENTER", tableAlias: "costCenter2")] // Table and column alias must be provided
+  public string AddressMapped { get; set; }
 }
 ```
 

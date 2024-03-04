@@ -188,7 +188,7 @@ public partial class SnowflakeCommand<T>
           ? this.Table.Alias ?? string.Empty
           : this.Joins.SingleOrDefault(join => string.Equals(join.Table, table, StringComparison.Ordinal))?.Alias ?? string.Empty);
 
-        columns.Append($"{tableAlias}{(string.IsNullOrWhiteSpace(tableAlias) ? string.Empty : ".")}{column.Name}, ");
+        columns.Append($"{tableAlias}{(string.IsNullOrWhiteSpace(tableAlias) ? string.Empty : ".")}{column.Name}{(string.IsNullOrWhiteSpace(column.ColumnAlias) ? string.Empty : $" AS {column.ColumnAlias}")}, ");
       }
 
       columns.Remove(columns.Length - 2, 2); // Remove last ", " to avoid query issues
