@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.6.0...v1.7.0) (2024-03-04)
+
+
+### Features
+
+* **snowflake-column-attribute:** allow to reuse same column names if alias is provided ([be044c1](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/be044c15abe7e5b9f40ca8c20905836e61cb7586))
+
 # [1.6.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.5.1...v1.6.0) (2024-03-01)
 
 
