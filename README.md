@@ -60,7 +60,7 @@ public class ExamplesRepository : IExamplesRepository
 {
   public async Task<IList<Example>> GetByAddressAsync(string address, CancellationToken cancellationToken = default)
   {
-    var snowflakeCommand = new SnowflakeDbCommand<Example>() // Creates a default select statement
+    var snowflakeCommand = new SnowflakeCommand<Example>() // Creates a default select statement
       .Select(item => item.Value)               // Only select the value
       .Where(item => item.Address == address)   // Filter for the address
       .OrderByAsc(item => item.Value);          // Sort by value ascending
@@ -160,12 +160,12 @@ public class ExamplesRepository : IExamplesRepository
       .OpenAsync(cancellationToken)
       .ConfigureAwait(false);
 
-    var example = new SnowflakeDbCommand<Example>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor
+    var example = new SnowflakeCommand<Example>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor
       .Where(item => item.Address == address)
       .FirstOrDefaultAsync(cancellationToken)
       .ConfigureAwait(false);
 
-    var owner = new SnowflakeDbCommand<Owner>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor and it will be reused
+    var owner = new SnowflakeCommand<Owner>(snowflakeDbConnection) // Provide the snowflake database connection in the constructor and it will be reused
       .Where(item => item.Name == example.OwnerName)
       .FirstOrDefaultAsync(cancellationToken)
       .ConfigureAwait(false);
