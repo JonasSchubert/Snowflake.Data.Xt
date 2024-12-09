@@ -59,6 +59,22 @@ namespace Snowflake.Data.Xt.Tests
     }
 
     [Fact]
+    public void WherePredicate_ShouldFill_SELECT_FROM_ForClassWithPropertyNameAsClassName_AndMultipleWhereWithParameter()
+    {
+      // Arrange && Act
+      var testProperty = "test";
+      var command = new SnowflakeCommand<SnowflakeClass5>("DATABASE", "SCHEMA")
+        .Where(item => item.Name == testProperty || item.Name == string.Empty || item.Name == null);
+
+      // Assert
+      command.Sql.Should().Be("SELECT a.SnowflakeClass5 FROM DATABASE.SCHEMA.SnowflakeClass5 AS a WHERE (((a.SnowflakeClass5 = ?) OR (a.SnowflakeClass5 = '')) OR (a.SnowflakeClass5 = null))");
+      command.ParameterList.Count.Should().Be(1);
+      command.ParameterList[0].Item1.Should().Be("1");
+      command.ParameterList[0].Item2.Should().Be(System.Data.DbType.String);
+      command.ParameterList[0].Item3.Should().Be("test");
+    }
+
+    [Fact]
     public void WhereString_ShouldFill_SELECT_FROM_ForSimpleClass()
     {
       // Arrange && Act

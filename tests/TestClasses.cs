@@ -72,4 +72,11 @@ namespace Snowflake.Data.Xt.Tests
     [SnowflakeColumn("Prop_2", "BAR", "bar2", "Prop2Mapped")]
     public string? Prop_2_Mapped { get; set; }
   }
+
+  [SnowflakeTable]
+  internal sealed class SnowflakeClass5
+  {
+    [SnowflakeColumn("SnowflakeClass5")]
+    public required string Name { get; set; }
+  }
 }
