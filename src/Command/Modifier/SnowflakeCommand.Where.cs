@@ -50,6 +50,7 @@ namespace Snowflake.Data.Xt
             ("AndAlso", "AND"),
             ("OrElse", "OR"),
             ("==", "="),
+            ("String.Empty", "''"),
         })
       {
         whereBody = whereBody.Replace(item.Item1, item.Item2, StringComparison.Ordinal);
