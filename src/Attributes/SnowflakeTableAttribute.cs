@@ -5,32 +5,27 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
-namespace Snowflake.Data.Xt;
-
-/// <summary>
-/// The snowflake table attribute.
-/// </summary>
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-public sealed class SnowflakeTableAttribute : Attribute
+namespace Snowflake.Data.Xt
 {
   /// <summary>
-  /// Initializes a new instance of the <see cref="SnowflakeTableAttribute"/> class.
+  /// The snowflake table attribute.
   /// </summary>
+  /// <remarks>
+  /// Initializes a new instance of the <see cref="SnowflakeTableAttribute"/> class.
+  /// </remarks>
   /// <param name="name">The name.</param>
   /// <param name="alias">The alias.</param>
-  public SnowflakeTableAttribute(string? name = default, string? alias = default)
+  [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+  public sealed class SnowflakeTableAttribute(string? name = default, string? alias = default) : Attribute
   {
-    this.Name = name ?? string.Empty;
-    this.Alias = alias;
+    /// <summary>
+    /// Gets the alias.
+    /// </summary>
+    public string? Alias { get; internal set; } = alias;
+
+    /// <summary>
+    /// Gets the name.
+    /// </summary>
+    public string Name { get; internal set; } = name ?? string.Empty;
   }
-
-  /// <summary>
-  /// Gets the alias.
-  /// </summary>
-  public string? Alias { get; internal set; }
-
-  /// <summary>
-  /// Gets the name.
-  /// </summary>
-  public string Name { get; internal set; }
 }

@@ -7,28 +7,29 @@
 
 using System.Data.Common;
 
-namespace Snowflake.Data.Xt;
-
-/// <summary>
-/// The static database command extensions class.
-/// </summary>
-public static class DbCommandExtensions
+namespace Snowflake.Data.Xt
 {
   /// <summary>
-  /// Adds a parameter to the database command.
+  /// The static database command extensions class.
   /// </summary>
-  /// <param name="dbCommand">The database command.</param>
-  /// <param name="parameterName">The parameter name.</param>
-  /// <param name="dbType">The database type.</param>
-  /// <param name="value">The value.</param>
-  public static void AddParameter(this DbCommand dbCommand, string parameterName, DbType dbType, object value)
+  public static class DbCommandExtensions
   {
-    var parameter = dbCommand.CreateParameter();
+    /// <summary>
+    /// Adds a parameter to the database command.
+    /// </summary>
+    /// <param name="dbCommand">The database command.</param>
+    /// <param name="parameterName">The parameter name.</param>
+    /// <param name="dbType">The database type.</param>
+    /// <param name="value">The value.</param>
+    public static void AddParameter(this DbCommand dbCommand, string parameterName, DbType dbType, object value)
+    {
+      var parameter = dbCommand.CreateParameter();
 
-    parameter.ParameterName = parameterName;
-    parameter.DbType = dbType;
-    parameter.Value = value;
+      parameter.ParameterName = parameterName;
+      parameter.DbType = dbType;
+      parameter.Value = value;
 
-    dbCommand.Parameters.Add(parameter);
+      dbCommand.Parameters.Add(parameter);
+    }
   }
 }

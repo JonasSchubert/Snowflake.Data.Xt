@@ -226,7 +226,7 @@ You can query for a single entry or a list - sync or async:
 ```
 MIT License
 
-Copyright (c) 2023-2024 Jonas Schubert
+Copyright (c) 2023-today Jonas Schubert
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

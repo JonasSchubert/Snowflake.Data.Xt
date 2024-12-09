@@ -5,91 +5,84 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
-namespace Snowflake.Data.Xt;
-
-/// <summary>
-/// The snowflake join attribute.
-/// </summary>
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public sealed class SnowflakeJoinAttribute : Attribute
+namespace Snowflake.Data.Xt
 {
   /// <summary>
-  /// Defines a join of type CROSS.
+  /// The snowflake join attribute.
   /// </summary>
-  public const string Cross = "CROSS";
-
-  /// <summary>
-  /// Defines a join of type FULL.
-  /// </summary>
-  public const string Full = "FULL";
-
-  /// <summary>
-  /// Defines a join of type FULL OUTER.
-  /// </summary>
-  public const string FullOuter = "FULL OUTER";
-
-  /// <summary>
-  /// Defines a join of type INNER.
-  /// </summary>
-  public const string Inner = "INNER";
-
-  /// <summary>
-  /// Defines a join of type LEFT.
-  /// </summary>
-  public const string Left = "LEFT";
-
-  /// <summary>
-  /// Defines a join of type LEFT OUTER.
-  /// </summary>
-  public const string LeftOuter = "LEFT OUTER";
-
-  /// <summary>
-  /// Defines a join of type NATURAL.
-  /// </summary>
-  public const string Natural = "NATURAL";
-
-  /// <summary>
-  /// Defines a join of type RIGHT.
-  /// </summary>
-  public const string Right = "RIGHT";
-
-  /// <summary>
-  /// Defines a join of type RIGHT OUTER.
-  /// </summary>
-  public const string RightOuter = "RIGHT OUTER";
-
-  /// <summary>
+  /// <remarks>
   /// Initializes a new instance of the <see cref="SnowflakeJoinAttribute"/> class.
-  /// </summary>
+  /// </remarks>
   /// <param name="table">The table.</param>
   /// <param name="alias">The alias.</param>
   /// <param name="type">The type.</param>
   /// <param name="condition">The condition.</param>
-  public SnowflakeJoinAttribute(string table, string alias, string type, string condition)
+  [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+  public sealed class SnowflakeJoinAttribute(string table, string alias, string type, string condition) : Attribute
   {
-    this.Table = table;
-    this.Alias = alias;
-    this.Type = type;
-    this.Condition = condition;
+    /// <summary>
+    /// Defines a join of type CROSS.
+    /// </summary>
+    public const string Cross = "CROSS";
+
+    /// <summary>
+    /// Defines a join of type FULL.
+    /// </summary>
+    public const string Full = "FULL";
+
+    /// <summary>
+    /// Defines a join of type FULL OUTER.
+    /// </summary>
+    public const string FullOuter = "FULL OUTER";
+
+    /// <summary>
+    /// Defines a join of type INNER.
+    /// </summary>
+    public const string Inner = "INNER";
+
+    /// <summary>
+    /// Defines a join of type LEFT.
+    /// </summary>
+    public const string Left = "LEFT";
+
+    /// <summary>
+    /// Defines a join of type LEFT OUTER.
+    /// </summary>
+    public const string LeftOuter = "LEFT OUTER";
+
+    /// <summary>
+    /// Defines a join of type NATURAL.
+    /// </summary>
+    public const string Natural = "NATURAL";
+
+    /// <summary>
+    /// Defines a join of type RIGHT.
+    /// </summary>
+    public const string Right = "RIGHT";
+
+    /// <summary>
+    /// Defines a join of type RIGHT OUTER.
+    /// </summary>
+    public const string RightOuter = "RIGHT OUTER";
+
+    /// <summary>
+    /// Gets the alias.
+    /// </summary>
+    public string Alias { get; internal set; } = alias;
+
+    /// <summary>
+    /// Gets the condition.
+    /// </summary>
+    public string Condition { get; } = condition;
+
+    /// <summary>
+    /// Gets the table.
+    /// </summary>
+    public string Table { get; } = table;
+
+    /// <summary>
+    /// Gets the type.
+    /// </summary>
+    public string Type { get; } = type;
   }
-
-  /// <summary>
-  /// Gets the alias.
-  /// </summary>
-  public string Alias { get; internal set; }
-
-  /// <summary>
-  /// Gets the condition.
-  /// </summary>
-  public string Condition { get; }
-
-  /// <summary>
-  /// Gets the table.
-  /// </summary>
-  public string Table { get; }
-
-  /// <summary>
-  /// Gets the type.
-  /// </summary>
-  public string Type { get; }
 }

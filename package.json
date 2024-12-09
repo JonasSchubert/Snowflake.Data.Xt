@@ -14,7 +14,7 @@
     "url": "https://github.com/JonasSchubert/Snowflake.Data.Xt.git"
   },
   "scripts": {
-    "build:prod": "dotnet clean && dotnet build -tl && dotnet publish src/Snowflake.Data.Xt.csproj -c Release -f net8.0",
+    "build:prod": "dotnet clean && dotnet build -tl && dotnet publish src/Snowflake.Data.Xt.csproj -c Release -f net9.0",
     "format": "dotnet format ./Snowflake.Data.Xt.sln",
     "pack": "dotnet pack --configuration Release",
     "prepare": "is-ci || husky",
@@ -23,12 +23,13 @@
     "test:unit": "dotnet test Snowflake.Data.Xt.sln --collect:\"XPlat Code Coverage\" --logger:\"junit;LogFilePath=../junit/junit-test-result.xml\" && dotnet tool run reportgenerator -reports:\"**/*/coverage.cobertura.xml\" -targetdir:\"coverage\" -reporttypes:\"Cobertura;HtmlInline\"",
     "tool:restore": "dotnet tool restore",
     "update:npm": "npm update",
-    "update:nuget": "dotnet tool run dotnet-outdated -u"
+    "update:nuget": "dotnet tool run dotnet-outdated -u",
+    "update:tools": "dotnet tool update --all"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
-    "commitlint-presets": "^1.0.5",
+    "commitlint-presets": "^2.0.0",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0"
   },

@@ -5,29 +5,30 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
-namespace Snowflake.Data.Xt;
-
-/// <summary>
-/// The snowflake command.
-/// </summary>
-/// <typeparam name="T">The generic type. This is used to parse properties for the query.</typeparam>
-public partial class SnowflakeCommand<T>
-  where T : class
+namespace Snowflake.Data.Xt
 {
   /// <summary>
-  /// Ensures a distinct query.
+  /// The snowflake command.
   /// </summary>
-  /// <returns>The snowflake command.</returns>
-  /// <exception cref="InvalidOperationException">Command already marked as distinct.</exception>
-  public SnowflakeCommand<T> IsDistinct()
+  /// <typeparam name="T">The generic type. This is used to parse properties for the query.</typeparam>
+  public partial class SnowflakeCommand<T>
+    where T : class
   {
-    if (this.Sql.Contains("SELECT DISTINCT", StringComparison.Ordinal))
+    /// <summary>
+    /// Ensures a distinct query.
+    /// </summary>
+    /// <returns>The snowflake command.</returns>
+    /// <exception cref="InvalidOperationException">Command already marked as distinct.</exception>
+    public SnowflakeCommand<T> IsDistinct()
     {
-      throw new InvalidOperationException("Command is already marked as distinct!");
+      if (this.Sql.Contains("SELECT DISTINCT", StringComparison.Ordinal))
+      {
+        throw new InvalidOperationException("Command is already marked as distinct!");
+      }
+
+      this.SqlBuilder.Replace("SELECT", "SELECT DISTINCT");
+
+      return this;
     }
-
-    this.SqlBuilder.Replace("SELECT", "SELECT DISTINCT");
-
-    return this;
   }
 }

@@ -3,8 +3,5 @@
   <metadata>
     <id>Snowflake.Data.Xt</id>
     <Version>1.7.1</Version>
-    <dependencies>
-      <depdendency id="Snowflake.Data" version="2.2.0" />
-    </dependencies>
   </metadata>
 </package>
