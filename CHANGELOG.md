@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.7.1...v2.0.0) (2024-12-09)
+
+
+### Features
+
+* **project:** add direct support for .net9.0, remove .net6.0 ([512c88a](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/512c88a604b42865e579f462bc2779650ac23e02))
+* **where:** add support for string.Empty ([5465a22](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/5465a22253c8bd41c8c7bed8f8990f51e6126bd6))
+
+
+### BREAKING CHANGES
+
+* **project:** drop support for .net6.0
+
 ## [1.7.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.7.0...v1.7.1) (2024-04-09)
 
 
