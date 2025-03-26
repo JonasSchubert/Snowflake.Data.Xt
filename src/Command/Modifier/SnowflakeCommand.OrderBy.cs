@@ -95,7 +95,7 @@ namespace Snowflake.Data.Xt
         throw new InvalidOperationException("Command already has an order by clause!");
       }
 
-      if (direction is not "ASC" or "DESC")
+      if (direction is not "ASC" and not "DESC")
       {
         throw new InvalidOperationException($"Invalid direction '{direction}'! Only ASC or DESC are supported");
       }
