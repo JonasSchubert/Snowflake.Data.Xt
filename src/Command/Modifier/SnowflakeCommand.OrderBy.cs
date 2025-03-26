@@ -87,11 +87,17 @@ namespace Snowflake.Data.Xt
     /// <param name="direction">The direction. ASC or DESC.</param>
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
+    /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
     protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, string direction)
     {
       if (this.Sql.Contains("ORDER BY", StringComparison.Ordinal))
       {
         throw new InvalidOperationException("Command already has an order by clause!");
+      }
+
+      if (direction is not "ASC" or "DESC")
+      {
+        throw new InvalidOperationException($"Invalid direction '{direction}'! Only ASC or DESC are supported");
       }
 
       var orderByBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, 3.Seconds())
