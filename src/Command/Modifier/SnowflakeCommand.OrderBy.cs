@@ -22,7 +22,10 @@ namespace Snowflake.Data.Xt
     /// <param name="predicate">The order by predicate.</param>
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
-    public SnowflakeCommand<T> OrderByAsc<TOrderBy>(Expression<Func<T, TOrderBy>> predicate) => this.OrderBy(predicate, "ASC");
+    public SnowflakeCommand<T> OrderByAsc<TOrderBy>(Expression<Func<T, TOrderBy>> predicate)
+    {
+      return this.OrderBy(predicate, "ASC");
+    }
 
     /// <summary>
     /// Adds an order by descending clause.
@@ -32,7 +35,10 @@ namespace Snowflake.Data.Xt
     /// <param name="predicate">The order by predicate.</param>
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
-    public SnowflakeCommand<T> OrderByDesc<TOrderBy>(Expression<Func<T, TOrderBy>> predicate) => this.OrderBy(predicate, "DESC");
+    public SnowflakeCommand<T> OrderByDesc<TOrderBy>(Expression<Func<T, TOrderBy>> predicate)
+    {
+      return this.OrderBy(predicate, "DESC");
+    }
 
     /// <summary>
     /// Adds a order by clause.
