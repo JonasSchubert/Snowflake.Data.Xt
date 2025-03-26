@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.0.0...v2.0.1) (2025-03-26)
+
+
+### Bug Fixes
+
+* **deps:** bump versions ([6669a16](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/6669a1609962505848ac9b718410399e96c222da))
+* **order-by:** fix direction pattern matching check ([b3592a8](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/b3592a8344877dc60e00b496c72cf26aab4e09a0))
+* **order-by:** validate direction ([17fd50b](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/17fd50b5a68d49b80d8983d6ddf1a115919495f8))
+
 # [2.0.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v1.7.1...v2.0.0) (2024-12-09)
 
 
