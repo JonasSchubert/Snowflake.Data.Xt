@@ -7,6 +7,7 @@
 
 using System.Reflection;
 using System.Text;
+using TimeSpanXt;
 using log4net;
 
 namespace Snowflake.Data.Xt
@@ -133,7 +134,7 @@ namespace Snowflake.Data.Xt
           return $"{propertyTableAlias}.{property.Value.Name}";
         })
         .ToList();
-      this.ValidPropertiesRegex = new Regex($"^({string.Join('|', this.ValidProperties)})$", RegexOptions.None, TimeSpan.FromSeconds(3));
+      this.ValidPropertiesRegex = new Regex($"^({string.Join('|', this.ValidProperties)})$", RegexOptions.None, 3.Seconds());
 
       this.SqlBuilder = new StringBuilder("SELECT ");
       this.AddColumns();

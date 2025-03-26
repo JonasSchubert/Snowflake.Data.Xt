@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Snowflake.Data" />
+    <PackageReference Include="TimeSpan.Xt" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,6 +5,8 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
+using TimeSpanXt;
+
 namespace Snowflake.Data.Xt
 {
   /// <summary>
@@ -23,7 +25,7 @@ namespace Snowflake.Data.Xt
     /// <returns>The snowflake command.</returns>
     public SnowflakeCommand<T> Select<TSelect>(Expression<Func<T, TSelect>> predicate)
     {
-      var selectBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, TimeSpan.FromSeconds(3))
+      var selectBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, 3.Seconds())
         .Replace(
           predicate.Body
             .ToString()

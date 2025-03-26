@@ -5,6 +5,8 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
+using TimeSpanXt;
+
 namespace Snowflake.Data.Xt
 {
   /// <summary>
@@ -92,7 +94,7 @@ namespace Snowflake.Data.Xt
         throw new InvalidOperationException("Command already has an order by clause!");
       }
 
-      var orderByBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, TimeSpan.FromSeconds(3))
+      var orderByBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, 3.Seconds())
         .Replace(
           predicate.Body
             .ToString()

@@ -5,6 +5,8 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
+using TimeSpanXt;
+
 namespace Snowflake.Data.Xt
 {
   /// <summary>
@@ -29,7 +31,7 @@ namespace Snowflake.Data.Xt
         throw new InvalidOperationException("Command already has a group by clause!");
       }
 
-      var groupByBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, TimeSpan.FromSeconds(3))
+      var groupByBody = string.Join(", ", new Regex("new <>f__AnonymousType[0-9]{1,}`[0-9]{1,}", RegexOptions.None, 3.Seconds())
         .Replace(
           predicate.Body
             .ToString()
