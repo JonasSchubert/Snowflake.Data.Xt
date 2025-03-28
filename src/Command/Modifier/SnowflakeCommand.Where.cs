@@ -79,6 +79,7 @@ namespace Snowflake.Data.Xt
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has a where clause.</exception>
     /// <exception cref="ArgumentNullException">Value for where clause may not be empty.</exception>
+    [Obsolete("Use Where(Expression<Func<T, bool>> predicate) instead.")]
     public SnowflakeCommand<T> Where(string where)
     {
       if (this.Sql.Contains("WHERE", StringComparison.Ordinal))
