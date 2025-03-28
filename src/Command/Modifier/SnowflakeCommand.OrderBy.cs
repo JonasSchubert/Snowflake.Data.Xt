@@ -51,6 +51,7 @@ namespace Snowflake.Data.Xt
     /// <exception cref="InvalidOperationException">Command already has a order by clause.</exception>
     /// <exception cref="ArgumentNullException">Value for order by clause may not be empty.</exception>
     /// <exception cref="ArgumentException">Order By may only contain valid properties.</exception>
+    [Obsolete("Use OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction, NullsHandling nullsHandling) instead.")]
     public SnowflakeCommand<T> OrderBy(string orderBy)
     {
       if (this.Sql.Contains("ORDER BY", StringComparison.Ordinal))
@@ -146,7 +147,7 @@ namespace Snowflake.Data.Xt
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
     /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
-    [Obsolete("Use OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction) instead.")]
+    [Obsolete("Use OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction, NullsHandling nullsHandling) instead.")]
     protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, string direction)
     {
       return direction is not "ASC" and not "DESC"
