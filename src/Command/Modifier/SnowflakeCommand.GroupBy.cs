@@ -65,6 +65,7 @@ namespace Snowflake.Data.Xt
     /// <exception cref="InvalidOperationException">Command already has a group by clause.</exception>
     /// <exception cref="ArgumentNullException">Value for group by clause may not be empty.</exception>
     /// <exception cref="ArgumentException">Group By may only contain valid properties.</exception>
+    [Obsolete("Use GroupBy<TGroupBy>(Expression<Func<T, TGroupBy>> predicate) instead.")]
     public SnowflakeCommand<T> GroupBy(string groupBy)
     {
       if (this.Sql.Contains("GROUP BY", StringComparison.Ordinal))
