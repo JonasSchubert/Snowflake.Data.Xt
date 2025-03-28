@@ -90,6 +90,22 @@ namespace Snowflake.Data.Xt
     /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
     protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction)
     {
+      return this.OrderBy(predicate, direction, NullsHandling.DEFAULT);
+    }
+
+    /// <summary>
+    /// Adds an order by clause.
+    /// https://docs.snowflake.com/en/sql-reference/constructs/order-by .
+    /// </summary>
+    /// <typeparam name="TOrderBy">The generic type.</typeparam>
+    /// <param name="predicate">The order by predicate.</param>
+    /// <param name="direction">The direction. ASC or DESC.</param>
+    /// <param name="nullsHandling">The handling of nulls.</param>
+    /// <returns>The snowflake command.</returns>
+    /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
+    /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
+    protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction, NullsHandling nullsHandling)
+    {
       if (this.Sql.Contains("ORDER BY", StringComparison.Ordinal))
       {
         throw new InvalidOperationException("Command already has an order by clause!");
@@ -115,7 +131,7 @@ namespace Snowflake.Data.Xt
         orderByBody = orderByBody.Replace($"{property.Key.Name}", $"{propertyTableAlias}.{propertyName}", StringComparison.Ordinal);
       }
 
-      this.SqlBuilder.Append($" ORDER BY {orderByBody.Trim()} {(direction is OrderByDirection.ASC ? "ASC" : "DESC")}");
+      this.SqlBuilder.Append($" ORDER BY {orderByBody.Trim()} {(direction is OrderByDirection.ASC ? "ASC" : "DESC")}{(nullsHandling is not NullsHandling.DEFAULT ? $" NULLS {(nullsHandling is NullsHandling.FIRST ? "FIRST" : "LAST")}" : string.Empty)}");
 
       return this;
     }
@@ -137,6 +153,27 @@ namespace Snowflake.Data.Xt
         ? throw new InvalidOperationException($"Invalid direction '{direction}'! Only ASC or DESC are supported")
         : this.OrderBy(predicate, direction is "ASC" ? OrderByDirection.ASC : OrderByDirection.DESC);
     }
+  }
+
+  /// <summary>
+  /// The handling of nulls.
+  /// </summary>
+  public enum NullsHandling
+  {
+    /// <summary>
+    /// Use default handling for NULLS.
+    /// </summary>
+    DEFAULT,
+
+    /// <summary>
+    /// Force NULLS to be first.
+    /// </summary>
+    FIRST,
+
+    /// <summary>
+    /// Force NULLS to be last.
+    /// </summary>
+    LAST,
   }
 
   /// <summary>
