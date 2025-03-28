@@ -1,3 +1,14 @@
+# [2.1.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.0.1...v2.1.0) (2025-03-28)
+
+
+### Features
+
+* **commands:** add limit ([e1b9093](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/e1b9093d26429df658feb4f00f78c71d9676f1a2))
+* **commands:** add limit ([f052ed8](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/f052ed84c11ba892d5ef23079e66c2cbe85bcbe6))
+* **methods:** add SingleOrDefault and SingleOrDefaultAsync ([4244bce](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/4244bce49f5557b8c1423422f601f4325d7433a0))
+* **methods:** add SingleOrDefault and SingleOrDefaultAsync ([51f6a25](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/51f6a25af5fa9b19a765f1ad7db9f7577f133f15))
+* **order-by:** add additional methods for string usage ([a55bd24](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/a55bd246b67acbbab02d31ce4d2fe27632e7bf34))
+
 ## [2.0.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.0.0...v2.0.1) (2025-03-26)
 
 
