@@ -203,6 +203,8 @@ You can query for a single entry or a list - sync or async:
 | --- | --- | --- |
 | [`FirstOrDefault`](./src/Command/Methods/SnowflakeCommand.FirstOrDefault.cs) | `IList<(string, DbType, object)>? parameterList = default` | Query synchron for one entry. |
 | [`FirstOrDefaultAsync`](./src/Command/Methods/SnowflakeCommand.FirstOrDefaultAsync.cs) | `IList<(string, DbType, object)>? parameterList = default, CancellationToken cancellationToken = default` | Query asynchron for one entry. |
+| [`SingleOrDefault`](./src/Command/Methods/SnowflakeCommand.SingleOrDefault.cs) | `IList<(string, DbType, object)>? parameterList = default` | Query synchron for exactly one entry. |
+| [`SingleOrDefaultAsync`](./src/Command/Methods/SnowflakeCommand.SingleOrDefaultAsync.cs) | `IList<(string, DbType, object)>? parameterList = default, CancellationToken cancellationToken = default` | Query asynchron for exactly one entry. |
 | [`ToList`](./src/Command/Methods/SnowflakeCommand.ToList.cs) | `IList<(string, DbType, object)>? parameterList = default` | Query synchron for a list. |
 | [`ToListAsync`](./src/Command/Methods/SnowflakeCommand.ToListAsync.cs) | `IList<(string, DbType, object)>? parameterList = default, CancellationToken cancellationToken = default` | Query asynchron for a list. |
 
