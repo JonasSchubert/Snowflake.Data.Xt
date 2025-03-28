@@ -89,7 +89,7 @@ namespace Snowflake.Data.Xt
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
     /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
-    protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction)
+    public SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction)
     {
       return this.OrderBy(predicate, direction, NullsHandling.DEFAULT);
     }
@@ -105,7 +105,7 @@ namespace Snowflake.Data.Xt
     /// <returns>The snowflake command.</returns>
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
     /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
-    protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction, NullsHandling nullsHandling)
+    public SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction, NullsHandling nullsHandling)
     {
       if (this.Sql.Contains("ORDER BY", StringComparison.Ordinal))
       {
@@ -148,7 +148,7 @@ namespace Snowflake.Data.Xt
     /// <exception cref="InvalidOperationException">Command already has an order by clause.</exception>
     /// <exception cref="InvalidOperationException">Direction is not a valid value.</exception>
     [Obsolete("Use OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, OrderByDirection direction, NullsHandling nullsHandling) instead.")]
-    protected SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, string direction)
+    public SnowflakeCommand<T> OrderBy<TOrderBy>(Expression<Func<T, TOrderBy>> predicate, string direction)
     {
       return direction is not "ASC" and not "DESC"
         ? throw new InvalidOperationException($"Invalid direction '{direction}'! Only ASC or DESC are supported")
