@@ -45,6 +45,34 @@ namespace Snowflake.Data.Xt.Tests
     }
 
     [Fact]
+    public void OrderByAscPredicate_WithDirection_ShouldFill_SELECT_FROM_ForSimpleClass_AndOneOrderBy()
+    {
+      // Arrange
+      var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+        .OrderBy(item => item.Property1, OrderByDirection.ASC);
+
+      // Act
+      var sql = command.Sql;
+
+      // Assert
+      sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a ORDER BY a.PROP_1 ASC");
+    }
+
+    [Fact]
+    public void OrderByAscPredicate_WithDirectionAndNullsHandling_ShouldFill_SELECT_FROM_ForSimpleClass_AndOneOrderBy()
+    {
+      // Arrange
+      var command = new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
+        .OrderBy(item => item.Property1, OrderByDirection.ASC, NullsHandling.FIRST);
+
+      // Act
+      var sql = command.Sql;
+
+      // Assert
+      sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a ORDER BY a.PROP_1 ASC NULLS FIRST");
+    }
+
+    [Fact]
     public void OrderByDescPredicate_ShouldFill_SELECT_FROM_JOIN_ForClassWithJoin_AndMultipleOrderBy()
     {
       // Arrange
@@ -56,6 +84,34 @@ namespace Snowflake.Data.Xt.Tests
 
       // Assert
       sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.Prop_2 DESC");
+    }
+
+    [Fact]
+    public void OrderByPredicate_WithDirection_ShouldFill_SELECT_FROM_JOIN_ForClassWithJoin_AndMultipleOrderBy()
+    {
+      // Arrange
+      var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
+        .OrderBy(item => new { item.Property1, item.Prop_2 }, OrderByDirection.DESC);
+
+      // Act
+      var sql = command.Sql;
+
+      // Assert
+      sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.Prop_2 DESC");
+    }
+
+    [Fact]
+    public void OrderByPredicate_WithDirectionAndNullsHandling_ShouldFill_SELECT_FROM_JOIN_ForClassWithJoin_AndMultipleOrderBy()
+    {
+      // Arrange
+      var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
+        .OrderBy(item => new { item.Property1, item.Prop_2 }, OrderByDirection.DESC, NullsHandling.LAST);
+
+      // Act
+      var sql = command.Sql;
+
+      // Assert
+      sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID ORDER BY foo.PROP_1, bar.Prop_2 DESC NULLS LAST");
     }
 
     [Fact]
