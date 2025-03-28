@@ -189,6 +189,7 @@ You can add multiple modifiers to you command:
 | [`GroupBy`](./src/Command/Modifier/SnowflakeCommand.GroupBy.cs) | `string text` or a predicate | Add a group by clause. e.g. `GROUP BY PLANR` |
 | [`Having`](./src/Command/Modifier/SnowflakeCommand.Having.cs) | `string text` | Add a having predicate. e.g. `HAVING count(*) > 10` |
 | [`IsDistinct`](./src/Command/Modifier/SnowflakeCommand.IsDistinct.cs) | `-` | The select statement will be distinct. |
+| [`Limit`](./src/Command/Modifier/SnowflakeCommand.Limit.cs) | `int count`, `int offset` | Adds a limit and offset for your command. |
 | [`OrderBy`](./src/Command/Modifier/SnowflakeCommand.OrderBy.cs) | `string text` or a predicate | Add an order by text. e.g. `PLANR ASC` |
 | [`Select`](./src/Command/Modifier/SnowflakeCommand.Select.cs) |  a predicate | Add a select statement to only query selected columns. |
 | [`Top`](./src/Command/Modifier/SnowflakeCommand.Top.cs) | `int amount` | The select statement will return the `TOP AMOUNT` found entries. |
