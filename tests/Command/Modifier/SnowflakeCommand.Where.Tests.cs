@@ -10,7 +10,7 @@ namespace Snowflake.Data.Xt.Tests
         .Where(item => item.Property1 == "test");
 
       // Assert
-      command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a WHERE (a.PROP_1 = \"test\")");
+      command.Sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE.SCHEMA.SnowflakeClass1 AS a WHERE (a.PROP_1 = 'test')");
       command.ParameterList.Count.Should().Be(0);
     }
 
@@ -38,7 +38,7 @@ namespace Snowflake.Data.Xt.Tests
         .Where(item => item.Id == 2 && item.Property1 == "test");
 
       // Assert
-      command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = \"test\"))");
+      command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE ((bar.ID = 2) AND (foo.PROP_1 = 'test'))");
       command.ParameterList.Count.Should().Be(0);
     }
 
@@ -91,10 +91,10 @@ namespace Snowflake.Data.Xt.Tests
     {
       // Arrange && Act
       var command = new SnowflakeCommand<SnowflakeClass2>("DATABASE", "SCHEMA")
-        .Where("WHERE bar.Prop_2 == \"test\"");
+        .Where("WHERE bar.Prop_2 == 'test'");
 
       // Assert
-      command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.Prop_2 == \"test\"");
+      command.Sql.Should().Be("SELECT bar.ID, foo.PROP_1, bar.Prop_2 FROM DATABASE.SCHEMA.BAR AS bar LEFT JOIN DATABASE.SCHEMA.FOO AS foo ON bar.ID = foo.ID WHERE bar.Prop_2 == 'test'");
       command.ParameterList.Count.Should().Be(0);
     }
 
@@ -104,7 +104,7 @@ namespace Snowflake.Data.Xt.Tests
       // Arrange && Act
       var command = () => new SnowflakeCommand<SnowflakeClass1>("DATABASE", "SCHEMA")
         .Where("a.ID != 2")
-        .Where("a.PROP_1 == \"test\"");
+        .Where("a.PROP_1 == 'test'");
 
       // Assert
       command.Should().Throw<InvalidOperationException>().WithMessage("Command already has a where clause!");

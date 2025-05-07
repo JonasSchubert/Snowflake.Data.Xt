@@ -160,7 +160,7 @@ namespace Snowflake.Data.Xt
     /// <summary>
     /// Gets the SQL command.
     /// </summary>
-    public string Sql => this.SqlBuilder.ToString().Trim();
+    public string Sql => this.SqlBuilder.ToString().Trim().Replace("\"", "'");
 
     /// <summary>
     /// Gets the table.
