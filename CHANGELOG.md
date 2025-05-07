@@ -1,3 +1,11 @@
+## [2.1.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.1.0...v2.1.1) (2025-05-07)
+
+
+### Bug Fixes
+
+* **deps:** :arrow_up: bump versions ([90e2f01](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/90e2f01fe58effe69db9b4d6d316706c85a62fdf))
+* **sql:** :bug: replace double quotes with single quotes ([7bb0617](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/7bb0617df982d2d6fc8c6f8dd441f2dc2e1a717a))
+
 # [2.1.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.0.1...v2.1.0) (2025-03-28)
 
 
