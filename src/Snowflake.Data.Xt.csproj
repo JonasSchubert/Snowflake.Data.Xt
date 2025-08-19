@@ -11,9 +11,9 @@
     <PackageTags>Snowflake,Fluent</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>Snowflake.Data.Xt</RootNamespace>
-    <Version>2.1.1</Version>
-    <AssemblyVersion>2.1.1</AssemblyVersion>
-    <FileVersion>2.1.1</FileVersion>
+    <Version>2.1.2</Version>
+    <AssemblyVersion>2.1.2</AssemblyVersion>
+    <FileVersion>2.1.2</FileVersion>
     <RepositoryUrl>https://github.com/JonasSchubert/Snowflake.Data.Xt.git</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
   </PropertyGroup>

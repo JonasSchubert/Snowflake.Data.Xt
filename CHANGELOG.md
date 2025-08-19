@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.1.1...v2.1.2) (2025-08-19)
+
+
+### Bug Fixes
+
+* **deps:** :arrow_up: bump versions ([9117094](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/91170943e8885dcc5cb8665145b30a65d73b3ed1))
+
 ## [2.1.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.1.0...v2.1.1) (2025-05-07)
 
 
