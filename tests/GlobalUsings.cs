@@ -5,6 +5,5 @@
 // <author>Jonas Schubert</author>
 //-----------------------------------------------------------------------
 
-global using FluentAssertions;
-
+global using AwesomeAssertions;
 global using Xunit;
