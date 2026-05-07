@@ -57,14 +57,10 @@ namespace Snowflake.Data.Xt
 
     private async Task<T?> FirstOrDefaultAsync(SnowflakeDbConnection snowflakeDbConnection, IList<(string, DbType, object)>? parameterList = default, CancellationToken cancellationToken = default)
     {
-      this.WriteLogInformation("Performing snowflake command to retrieve one entity (FirstOrDefaultAsync).");
-
       var command = snowflakeDbConnection.CreateCommand();
-      this.WriteLogInformation(this.Sql);
       command.CommandText = this.Sql;
 
       var totalParameterList = this.ParameterList.Concat(parameterList ?? []).ToList();
-      this.WriteLogInformation(string.Format(CultureInfo.InvariantCulture, "Adding {0} parameters.", totalParameterList.Count));
       foreach (var parameter in totalParameterList)
       {
         command.AddParameter(parameter.Item1, parameter.Item2, parameter.Item3);
@@ -72,8 +68,6 @@ namespace Snowflake.Data.Xt
 
       var reader = await command.ExecuteReaderAsync(cancellationToken).ConfigureAwait(false);
       var item = reader.FirstOrDefault<T>();
-
-      this.WriteLogInformation($"Found{(item is not null ? string.Empty : " no")} item for the provided query.");
 
       return item;
     }
