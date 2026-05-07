@@ -66,5 +66,21 @@ namespace Snowflake.Data.Xt.Tests
       // Assert
       sql.Should().Be("SELECT a.SnowflakeClass5 FROM DATABASE.SCHEMA.SnowflakeClass5 AS a");
     }
+
+    [Fact]
+    public void CustomSql_ShouldOverrideDefaultSql()
+    {
+      // Arrange
+      var command = new SnowflakeCommand<SnowflakeClass5>("DATABASE", "SCHEMA")
+      {
+        CustomSql = "SELECT Name FROM DATABASE.SCHEMA.SnowflakeClass5 AS a",
+      };
+
+      // Act
+      var sql = command.Sql;
+
+      // Assert
+      sql.Should().Be("SELECT Name FROM DATABASE.SCHEMA.SnowflakeClass5 AS a");
+    }
   }
 }

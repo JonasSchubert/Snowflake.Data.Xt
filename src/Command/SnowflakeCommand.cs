@@ -137,6 +137,13 @@ namespace Snowflake.Data.Xt
     }
 
     /// <summary>
+    /// Gets or sets a custom SQL query.
+    /// This can be useful if you want to use this package, but want to write your own SQL query.
+    /// If this is set, this will be used instead of the SQL builder value.
+    /// </summary>
+    public string? CustomSql { get; set; }
+
+    /// <summary>
     /// Gets the list of joins.
     /// </summary>
     public IList<SnowflakeJoinAttribute> Joins { get; }
@@ -154,7 +161,7 @@ namespace Snowflake.Data.Xt
     /// <summary>
     /// Gets the SQL command.
     /// </summary>
-    public string Sql => this.SqlBuilder.ToString().Trim().Replace("\"", "'");
+    public string Sql => string.IsNullOrWhiteSpace(this.CustomSql) ? this.SqlBuilder.ToString().Trim().Replace("\"", "'") : this.CustomSql;
 
     /// <summary>
     /// Gets the table.
