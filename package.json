@@ -14,7 +14,7 @@
     "url": "https://github.com/JonasSchubert/Snowflake.Data.Xt.git"
   },
   "scripts": {
-    "build:prod": "dotnet clean && dotnet build -tl && dotnet publish src/Snowflake.Data.Xt.csproj -c Release -f net9.0",
+    "build:prod": "dotnet clean && dotnet build -tl && dotnet publish src/Snowflake.Data.Xt.csproj -c Release -f net10.0",
     "format": "dotnet format ./Snowflake.Data.Xt.sln",
     "pack": "dotnet pack --configuration Release",
     "prepare": "is-ci || husky",
