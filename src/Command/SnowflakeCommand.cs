@@ -8,7 +8,6 @@
 using System.Reflection;
 using System.Text;
 using TimeSpanXt;
-using log4net;
 
 namespace Snowflake.Data.Xt
 {
@@ -22,12 +21,7 @@ namespace Snowflake.Data.Xt
     /// <summary>
     /// An array of chars used for table aliases in the final command.
     /// </summary>
-    protected static char[] s_alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-
-    /// <summary>
-    /// The logger.
-    /// </summary>
-    protected static ILog s_log = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType);
+    protected static readonly char[] Alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
 
     /// <summary>
     /// The snowflake database connection.
@@ -79,12 +73,12 @@ namespace Snowflake.Data.Xt
       this._snowflakeDbConnection = snowflakeDbConnection;
       if (string.IsNullOrWhiteSpace(database))
       {
-        throw new ArgumentException(string.Format("'{0}' is not a valid value for database.", database), nameof(database));
+        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "'{0}' is not a valid value for database.", database), nameof(database));
       }
 
       if (string.IsNullOrWhiteSpace(schema))
       {
-        throw new ArgumentException(string.Format("'{0}' is not a valid value for schema.", schema), nameof(schema));
+        throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "'{0}' is not a valid value for schema.", schema), nameof(schema));
       }
 
       var alphabetIndex = 0;
@@ -96,7 +90,7 @@ namespace Snowflake.Data.Xt
 
       if (string.IsNullOrWhiteSpace(this.Table.Alias))
       {
-        this.Table.Alias = SnowflakeCommand<T>.s_alphabet[alphabetIndex].ToString();
+        this.Table.Alias = SnowflakeCommand<T>.Alphabet[alphabetIndex].ToString();
         alphabetIndex++;
       }
 
@@ -105,7 +99,7 @@ namespace Snowflake.Data.Xt
         {
           if (string.IsNullOrWhiteSpace(attribute.Alias))
           {
-            attribute.Alias = SnowflakeCommand<T>.s_alphabet[alphabetIndex].ToString();
+            attribute.Alias = SnowflakeCommand<T>.Alphabet[alphabetIndex].ToString();
             alphabetIndex++;
           }
 
@@ -181,15 +175,14 @@ namespace Snowflake.Data.Xt
       {
         var columns = new StringBuilder();
 
-        foreach (KeyValuePair<PropertyInfo, SnowflakeColumnAttribute> property in this.Properties)
+        foreach (SnowflakeColumnAttribute column in this.Properties.Select(_ => _.Value))
         {
-          var column = property.Value;
           var table = column.Table ?? this.Table.Name;
           var tableAlias = column.TableAlias ?? (string.Equals(this.Table.Name, table, StringComparison.Ordinal)
             ? this.Table.Alias ?? string.Empty
             : this.Joins.SingleOrDefault(join => string.Equals(join.Table, table, StringComparison.Ordinal))?.Alias ?? string.Empty);
 
-          columns.Append($"{tableAlias}{(string.IsNullOrWhiteSpace(tableAlias) ? string.Empty : ".")}{column.Name}{(string.IsNullOrWhiteSpace(column.ColumnAlias) ? string.Empty : $" AS {column.ColumnAlias}")}, ");
+          columns.Append(CultureInfo.InvariantCulture, $"{tableAlias}{(string.IsNullOrWhiteSpace(tableAlias) ? string.Empty : ".")}{column.Name}{(string.IsNullOrWhiteSpace(column.ColumnAlias) ? string.Empty : $" AS {column.ColumnAlias}")}, ");
         }
 
         columns.Remove(columns.Length - 2, 2); // Remove last ", " to avoid query issues
@@ -223,7 +216,7 @@ namespace Snowflake.Data.Xt
     /// <param name="schema">The schema.</param>
     protected void AddFrom(string database, string schema)
     {
-      this.SqlBuilder.Append($" FROM {database}.{schema}.{this.Table.Name}{(string.IsNullOrWhiteSpace(this.Table.Alias) ? string.Empty : $" AS {this.Table.Alias}")}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" FROM {database}.{schema}.{this.Table.Name}{(string.IsNullOrWhiteSpace(this.Table.Alias) ? string.Empty : $" AS {this.Table.Alias}")}");
     }
 
     /// <summary>
@@ -235,19 +228,7 @@ namespace Snowflake.Data.Xt
     {
       foreach (SnowflakeJoinAttribute join in this.Joins)
       {
-        this.SqlBuilder.Append($" {join.Type} JOIN {database}.{schema}.{join.Table} AS {join.Alias} ON {join.Condition}");
-      }
-    }
-
-    /// <summary>
-    /// Writes an information log if enabled.
-    /// </summary>
-    /// <param name="text">The text to log.</param>
-    protected void WriteLogInformation(string text)
-    {
-      if (string.Equals(Environment.GetEnvironmentVariable("SNOWFLAKE_LOG_ENABLED") ?? "true", "true", StringComparison.Ordinal))
-      {
-        s_log.Info(text);
+        this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" {join.Type} JOIN {database}.{schema}.{join.Table} AS {join.Alias} ON {join.Condition}");
       }
     }
   }
