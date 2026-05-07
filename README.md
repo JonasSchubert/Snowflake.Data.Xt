@@ -215,7 +215,6 @@ You can query for a single entry or a list - sync or async:
 | `SNOWFLAKE_ACCOUNT` | `true` | `null` | The snowflake account. Also check [official docs](https://github.com/snowflakedb/snowflake-connector-net#usage) for .NET connector. |
 | `SNOWFLAKE_AUTHENTICATOR` | `true` | `null` | The method of authentication in snowflake. Also check [official docs](https://github.com/snowflakedb/snowflake-connector-net#usage) for .NET connector. Should be `snowflake_jwt`. |
 | `SNOWFLAKE_DATABASE` | `false` | `null` | The database to connect to. |
-| `SNOWFLAKE_LOG_ENABLED` | `false` | `true` | Whether to log information using serilog or not. |
 | `SNOWFLAKE_PRIVATE_KEY_PASSWORD` | `true` | `null` | The password for the private key. Also check [official docs](https://github.com/snowflakedb/snowflake-connector-net#usage) for .NET connector. |
 | `SNOWFLAKE_PRIVATE_KEY_FILE` | `true` | `null` | The path to the private key file. Should be the absolute path to the file. Also check [official docs](https://github.com/snowflakedb/snowflake-connector-net#usage) for .NET connector. |
 | `SNOWFLAKE_SCHEMA` | `false` | `null` | The schema to use. |
