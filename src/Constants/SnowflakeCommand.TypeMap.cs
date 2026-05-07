@@ -19,7 +19,7 @@ namespace Snowflake.Data.Xt
     /// https://stackoverflow.com/a/7952171 .
     /// </summary>
     /// <returns>A dictionary with maps for Type to DbType.</returns>
-    private readonly IDictionary<Type, DbType> _typeMap = new Dictionary<Type, DbType>()
+    private readonly Dictionary<Type, DbType> _typeMap = new()
     {
       { typeof(byte), DbType.Byte },
       { typeof(sbyte), DbType.SByte },
