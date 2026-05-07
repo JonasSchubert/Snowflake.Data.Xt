@@ -1,3 +1,31 @@
+# [3.0.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.1.2...v3.0.0) (2026-05-07)
+
+
+### Bug Fixes
+
+* **sql-builder:** :bug: use CultureInfo.InvariantCulture ([9b82a58](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/9b82a584ba4240df3a5daf830770cfc2522ddfab))
+
+
+### chore
+
+* **deps:** :arrow_up: bump dependencies ([0a316ee](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/0a316ee24e260fb8af5074bc872cab3865208263))
+
+
+### Features
+
+* **.net:** :sparkles: add direct .net10 support ([8124892](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/812489218f5596471d440696a6ec9e8e3ac83b8d))
+* **sql:** :sparkles: allow to write custom SQL ([6e2f8a7](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/6e2f8a7a6e0650b526a98aa85018c93058dff520))
+
+
+### Performance Improvements
+
+* **type-map:** :zap: use class definition instead of interface ([2970e0e](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/2970e0e97b1a7102fda57527523fc8ea01694040))
+
+
+### BREAKING CHANGES
+
+* **deps:** Use Snowflake.Data in v5. Remove logger and logging method. Rename s_alphabet to Alphabet.
+
 ## [2.1.2](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v2.1.1...v2.1.2) (2025-08-19)
 
 
