@@ -51,7 +51,7 @@ namespace Snowflake.Data.Xt
         groupByBody = groupByBody.Replace($"{property.Key.Name}", $"{propertyTableAlias}.{propertyName}", StringComparison.Ordinal);
       }
 
-      this.SqlBuilder.Append($" GROUP BY {groupByBody.Trim()}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" GROUP BY {groupByBody.Trim()}");
 
       return this;
     }
@@ -84,7 +84,7 @@ namespace Snowflake.Data.Xt
         throw new ArgumentException($"Group By may only contain valid properties ({string.Join(", ", this.ValidProperties)})! \"{regexTestValue}\" is not allowed!");
       }
 
-      this.SqlBuilder.Append($" {(groupBy.Trim().StartsWith("GROUP BY", ignoreCase: true, CultureInfo.InvariantCulture) ? groupBy.Trim() : $"GROUP BY {groupBy.Trim()}")}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" {(groupBy.Trim().StartsWith("GROUP BY", ignoreCase: true, CultureInfo.InvariantCulture) ? groupBy.Trim() : $"GROUP BY {groupBy.Trim()}")}");
 
       return this;
     }

@@ -40,7 +40,7 @@ namespace Snowflake.Data.Xt
         throw new ArgumentNullException(nameof(having), "Value for having predicate may not be empty!");
       }
 
-      this.SqlBuilder.Append($" {(having.Trim().StartsWith("HAVING", ignoreCase: true, CultureInfo.InvariantCulture) ? having.Trim() : $"HAVING {having.Trim()}")}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" {(having.Trim().StartsWith("HAVING", ignoreCase: true, CultureInfo.InvariantCulture) ? having.Trim() : $"HAVING {having.Trim()}")}");
 
       return this;
     }

@@ -74,7 +74,7 @@ namespace Snowflake.Data.Xt
         throw new ArgumentException($"Order By may only contain valid properties ({string.Join(", ", this.ValidProperties)})! \"{regexTestValue}\" is not allowed!");
       }
 
-      this.SqlBuilder.Append($" {(orderBy.Trim().StartsWith("ORDER BY", ignoreCase: true, CultureInfo.InvariantCulture) ? orderBy.Trim() : $"ORDER BY {orderBy.Trim()}")}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" {(orderBy.Trim().StartsWith("ORDER BY", ignoreCase: true, CultureInfo.InvariantCulture) ? orderBy.Trim() : $"ORDER BY {orderBy.Trim()}")}");
 
       return this;
     }
@@ -132,7 +132,7 @@ namespace Snowflake.Data.Xt
         orderByBody = orderByBody.Replace($"{property.Key.Name}", $"{propertyTableAlias}.{propertyName}", StringComparison.Ordinal);
       }
 
-      this.SqlBuilder.Append($" ORDER BY {orderByBody.Trim()} {(direction is OrderByDirection.ASC ? "ASC" : "DESC")}{(nullsHandling is not NullsHandling.DEFAULT ? $" NULLS {(nullsHandling is NullsHandling.FIRST ? "FIRST" : "LAST")}" : string.Empty)}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" ORDER BY {orderByBody.Trim()} {(direction is OrderByDirection.ASC ? "ASC" : "DESC")}{(nullsHandling is not NullsHandling.DEFAULT ? $" NULLS {(nullsHandling is NullsHandling.FIRST ? "FIRST" : "LAST")}" : string.Empty)}");
 
       return this;
     }

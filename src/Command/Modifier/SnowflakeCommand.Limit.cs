@@ -41,7 +41,7 @@ namespace Snowflake.Data.Xt
         throw new ArgumentOutOfRangeException(nameof(offset), "Offset must be 0 or a positive integer!");
       }
 
-      this.SqlBuilder.Append($" LIMIT {count} OFFSET {offset}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" LIMIT {count} OFFSET {offset}");
 
       return this;
     }

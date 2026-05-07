@@ -66,7 +66,7 @@ namespace Snowflake.Data.Xt
         whereBody = whereBody.Replace($"{property.Key.Name}", $"{propertyTableAlias}.{propertyName}", StringComparison.Ordinal);
       }
 
-      this.SqlBuilder.Append($" WHERE {whereBody.Trim()}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" WHERE {whereBody.Trim()}");
 
       return this;
     }
@@ -92,7 +92,7 @@ namespace Snowflake.Data.Xt
         throw new ArgumentNullException(nameof(where), "Value for where clause may not be empty!");
       }
 
-      this.SqlBuilder.Append($" {(where.Trim().StartsWith("WHERE", ignoreCase: true, CultureInfo.InvariantCulture) ? where.Trim() : $"WHERE {where.Trim()}")}");
+      this.SqlBuilder.Append(CultureInfo.InvariantCulture, $" {(where.Trim().StartsWith("WHERE", ignoreCase: true, CultureInfo.InvariantCulture) ? where.Trim() : $"WHERE {where.Trim()}")}");
 
       return this;
     }
