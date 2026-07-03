@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v3.0.1...v3.1.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* **deps:** :arrow_up: bump versions ([bfa11d7](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/bfa11d7de9b3e2ebfbf9e198d1b00837170ae1e6))
+
+
+### Features
+
+* **configuration:** :sparkles: add IOptions to validate on startup ([0159bac](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/0159bac8f7d2f89b91ec6b7f667a94d618b285a8))
+
 ## [3.0.1](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v3.0.0...v3.0.1) (2026-05-29)
 
 
