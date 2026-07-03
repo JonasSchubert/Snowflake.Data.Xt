@@ -5,6 +5,7 @@
   </PropertyGroup>
   <!-- Production related dependencies -->
   <ItemGroup>
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
     <PackageVersion Include="Snowflake.Data" Version="5.7.0" />
     <PackageVersion Include="TimeSpan.Xt" Version="0.6.1" />
   </ItemGroup>

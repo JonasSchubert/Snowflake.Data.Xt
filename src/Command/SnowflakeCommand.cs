@@ -7,6 +7,7 @@
 
 using System.Reflection;
 using System.Text;
+using Microsoft.Extensions.Options;
 using TimeSpanXt;
 
 namespace Snowflake.Data.Xt
@@ -31,11 +32,23 @@ namespace Snowflake.Data.Xt
     /// <summary>
     /// Initializes a new instance of the <see cref="SnowflakeCommand{T}"/> class.
     /// </summary>
+    /// <param name="options">The options.</param>
+    public SnowflakeCommand(IOptions<SnowflakeOptions> options)
+      : this(
+        database: options.Value.Database!,
+        schema: options.Value.Schema!,
+        snowflakeDbConnection: null)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SnowflakeCommand{T}"/> class.
+    /// </summary>
     /// <exception cref="ArgumentNullException">If either env variable for database or schema is not set, an argument null exception is being thrown.</exception>
     public SnowflakeCommand()
       : this(
-        database: Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE") !,
-        schema: Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA") !,
+        database: Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE")!,
+        schema: Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA")!,
         snowflakeDbConnection: null)
     {
     }
@@ -56,8 +69,8 @@ namespace Snowflake.Data.Xt
     /// <param name="snowflakeDbConnection">The snowflake database connection.</param>
     public SnowflakeCommand(SnowflakeDbConnection snowflakeDbConnection)
       : this(
-        database: Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE") !,
-        schema: Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA") !,
+        database: Environment.GetEnvironmentVariable("SNOWFLAKE_DATABASE")!,
+        schema: Environment.GetEnvironmentVariable("SNOWFLAKE_SCHEMA")!,
         snowflakeDbConnection)
     {
     }
@@ -82,7 +95,7 @@ namespace Snowflake.Data.Xt
       }
 
       var alphabetIndex = 0;
-      this.Table = (SnowflakeTableAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeTableAttribute)) !;
+      this.Table = (SnowflakeTableAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeTableAttribute))!;
       if (string.IsNullOrWhiteSpace(this.Table.Name))
       {
         this.Table.Name = typeof(T).Name;
