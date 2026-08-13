@@ -1,3 +1,15 @@
+# [3.2.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v3.1.0...v3.2.0) (2026-08-13)
+
+
+### Bug Fixes
+
+* **deps:** :arrow_up: bump versions ([35e6e44](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/35e6e44f1bf3e7b0768a03f1c63d0b7c806e8a55))
+
+
+### Features
+
+* **attributes:** :sparkles: add SnowflakeDatabase and SnowflakeSchema to allow class definitions ([034e5e2](https://github.com/JonasSchubert/Snowflake.Data.Xt/commit/034e5e2e114242a2548593e4071cefbcc5bd45a8))
+
 # [3.1.0](https://github.com/JonasSchubert/Snowflake.Data.Xt/compare/v3.0.1...v3.1.0) (2026-07-03)
 
 
