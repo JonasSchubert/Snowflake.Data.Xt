@@ -10,14 +10,14 @@
       "rollForward": false
     },
     "dotnet-reportgenerator-globaltool": {
-      "version": "5.5.10",
+      "version": "5.5.11",
       "commands": [
         "reportgenerator"
       ],
       "rollForward": false
     },
     "roslynator.dotnet.cli": {
-      "version": "0.11.0",
+      "version": "0.13.0",
       "commands": [
         "roslynator"
       ],
