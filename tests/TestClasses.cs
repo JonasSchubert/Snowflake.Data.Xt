@@ -79,4 +79,17 @@ namespace Snowflake.Data.Xt.Tests
     [SnowflakeColumn("SnowflakeClass5")]
     public required string Name { get; set; }
   }
+
+  [SnowflakeDatabase("DATABASE2")]
+  [SnowflakeSchema("SCHEMA2")]
+  [SnowflakeTable]
+  internal sealed class SnowflakeClass6
+  {
+    [SnowflakeColumn("ID")]
+    public int Id { get; set; }
+
+    [SnowflakeColumn("PROP_1")]
+    public string? Property1 { get; set; }
+  }
+
 }

@@ -22,6 +22,10 @@ using Snowflake.Data.Xt;
 
 namespace SnowflakeApplication;
 
+// Define the database to use. Attribute is only allowed once. This is optional and can be set using environment variables. If the attribute exists, it will override the environment value.
+[SnowflakeDatabase("DATABASE")]
+// Define the schema to use. Attribute is only allowed once. This is optional and can be set using environment variables. If the attribute exists, it will override the environment value.
+[SnowflakeSchema("SCHEMA")]
 // Define the main table to read from. Attribute is only allowed once.
 [SnowflakeTable(
   name: "EXAMPLE_COST",     // Name is optional. If not provided, it would be parsed from the class name.
@@ -191,7 +195,7 @@ You can add multiple modifiers to you command:
 | [`IsDistinct`](./src/Command/Modifier/SnowflakeCommand.IsDistinct.cs) | `-` | The select statement will be distinct. |
 | [`Limit`](./src/Command/Modifier/SnowflakeCommand.Limit.cs) | `int count`, `int offset` | Adds a limit and offset for your command. |
 | [`OrderBy`](./src/Command/Modifier/SnowflakeCommand.OrderBy.cs) | `string text` or a predicate | Add an order by text. e.g. `PLANR ASC` |
-| [`Select`](./src/Command/Modifier/SnowflakeCommand.Select.cs) |  a predicate | Add a select statement to only query selected columns. |
+| [`Select`](./src/Command/Modifier/SnowflakeCommand.Select.cs) | a predicate | Add a select statement to only query selected columns. |
 | [`Top`](./src/Command/Modifier/SnowflakeCommand.Top.cs) | `int amount` | The select statement will return the `TOP AMOUNT` found entries. |
 | [`Where`](./src/Command/Modifier/SnowflakeCommand.Where.cs) | `string text` or a predicate | Add a where clause text. e.g. `PLANR IS NOT NULL AND PLANR LIKE "%test"` |
 

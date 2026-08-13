@@ -82,5 +82,18 @@ namespace Snowflake.Data.Xt.Tests
       // Assert
       sql.Should().Be("SELECT Name FROM DATABASE.SCHEMA.SnowflakeClass5 AS a");
     }
+
+    [Fact]
+    public void Constructor_ShouldFill_SELECT_FROM_ForAttributeClass()
+    {
+      // Arrange
+      var command = new SnowflakeCommand<SnowflakeClass6>();
+
+      // Act
+      var sql = command.Sql;
+
+      // Assert
+      sql.Should().Be("SELECT a.ID, a.PROP_1 FROM DATABASE2.SCHEMA2.SnowflakeClass6 AS a");
+    }
   }
 }

@@ -84,6 +84,19 @@ namespace Snowflake.Data.Xt
     public SnowflakeCommand(string database, string schema, SnowflakeDbConnection? snowflakeDbConnection)
     {
       this._snowflakeDbConnection = snowflakeDbConnection;
+
+      var databaseAttribute = (SnowflakeDatabaseAttribute?)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeDatabaseAttribute));
+      if (!string.IsNullOrWhiteSpace(databaseAttribute?.Name))
+      {
+        database = databaseAttribute.Name;
+      }
+
+      var schemaAttribute = (SnowflakeSchemaAttribute?)Attribute.GetCustomAttribute(typeof(T), typeof(SnowflakeSchemaAttribute));
+      if (!string.IsNullOrWhiteSpace(schemaAttribute?.Name))
+      {
+        schema = schemaAttribute.Name;
+      }
+
       if (string.IsNullOrWhiteSpace(database))
       {
         throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "'{0}' is not a valid value for database.", database), nameof(database));
